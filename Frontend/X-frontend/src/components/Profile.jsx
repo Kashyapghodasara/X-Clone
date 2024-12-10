@@ -59,7 +59,7 @@ const Profile = () => {
         <div className='px-5 mb-5'>
           <p>This is My bio Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quas quos ducimus. Eaque repellat, magnam sunt quaerat aperiam reprehenderit vitae alias, doloribus debitis accusantium perferendis mollitia nulla commodi quas. Quasi.✨💻⚙✒</p>
         </div>
-        <div className="flex flex-row gap-2 px-5 mb-2 text-gray-500 items-center">
+        <div className="flex flex-row gap-2 px-5 text-gray-500 items-center">
           <PiCalendarDotsBold className='text-xl' />
           <h1>Joined October 2024</h1>
         </div>
