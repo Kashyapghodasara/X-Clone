@@ -11,3 +11,12 @@
         
 ## Day 4 - Tuesday  -  10-12-2024
         - Create Login and Signup Page
+
+## Day 5 - Wednesday  -  10-12-2024
+        - Create a Backend Folder Structure
+        - Survived in Merging and Push file
+        - Change Folder Backend to Back-End
+        - This Stuff waste my 2 Hours 😵😖
+        * Suggestion -> Always Be aware of Copy some snippet from your old projects,
+                        because Older one has different Configuration so it might affect
+                        node_modules folder.
