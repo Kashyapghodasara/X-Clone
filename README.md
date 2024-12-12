@@ -13,10 +13,15 @@
         - Create Login and Signup Page
 
 ## Day 5 - Wednesday  -  11-12-2024
-        - Create a Backend Folder Structure
-        - Survived in Merging and Push file
-        - Change Folder Backend to Back-End
-        - This Stuff waste my 2 Hours 😵😖
-        * Suggestion -> Always Be aware of Copy some snippet from your old projects,
-                        because Older one has different Configuration so it might affect
-                        node_modules folder.
+       - Successfully merged and pushed the file.
+       - Renamed the folder from Backend to Back-End.
+       - This took up 2 hours of my time 😵😖.
+       
+       * SUGGESTION  : Always be cautious when copying snippets from older projects, as   they may have different configurations, which could impact your node_modules folder.
+
+## Day 6 - Thursday  -  12-12-2024
+        - Create API's
+        - API for Register, Login, Logout
+        - Tested on Postman
+
+
