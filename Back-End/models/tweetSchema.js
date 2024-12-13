@@ -9,15 +9,13 @@ const tweetSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-    bookmark: {
-        type: Array,
-        default: []
-    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     }
 }, { timestamps: true })
+
+// Tweet has no relation with Bookmark. instead of User has direct relation with Bookmark.
 
 const Tweet = mongoose.model("Tweet", tweetSchema);
 export default Tweet;

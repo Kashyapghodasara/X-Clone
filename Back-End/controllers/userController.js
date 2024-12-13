@@ -1,5 +1,6 @@
 import DBConnect from "../config/database.js";
 import User from "../models/userSchema.js";
+import logger from "../logger.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -38,7 +39,7 @@ const userRegister = async (req, res) => {
         })
 
     } catch (error) {
-        console.log("Error in userRegister", error.message);
+        logger.critical("Error in userRegister", error.message);
     }
 }
 
@@ -86,7 +87,7 @@ export const Login = async (req, res) => {
             success: true
         });
     } catch (error) {
-        console.log("Error in Login", error.message);
+        logger.critical("Error in Login", error.message);
     }
 };
 
@@ -96,4 +97,34 @@ export const Logout = async (req, res) => {
         message: "Logout Successfully",
         success: true
     })
+}
+
+export const Bookmark = async (req, res) => {
+    try {
+        const loggedInUserId = req.user.userId;
+        const tweetId = req.params.id;
+
+        //Find User
+        const user = await User.findById(loggedInUserId)
+
+        // Check Bookmark is Present or Not
+        if(user.bookmark.includes(tweetId)){
+            // Remove Bookmark
+            await User.findByIdAndUpdate(loggedInUserId, {$pull: {bookmark: tweetId}})
+            return res.status(200).json({
+                message: "Bookmark Removed Successfully",
+                success: true
+            })
+        } else {
+            // Add Bookmark
+            await User.findByIdAndUpdate(loggedInUserId, {$push: {bookmark: tweetId}})
+            return res.status(200).json({
+                message: "Bookmark Added Successfully",
+                success: true
+            })
+        }
+
+    } catch (error) {
+        logger.critical("Error in Bookmark", error.message);
+    }
 }

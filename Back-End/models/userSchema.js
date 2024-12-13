@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: true  
+        required: true
     },
     email: {
         type: String,
@@ -24,8 +24,15 @@ const userSchema = new mongoose.Schema({
     following: {
         type: Array,
         default: []
-    }
-}, {timestamps: true})
+    },
+     bookmark: {
+        type: Array,
+        default: []
+    },
+}, { timestamps: true })
+
+// Tweet has no relation with Bookmark. instead of User has direct relation with Bookmark.
+
 
 const User = mongoose.model("User", userSchema);
 export default User;
