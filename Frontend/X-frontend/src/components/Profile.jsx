@@ -3,15 +3,18 @@ import { FaArrowLeft } from "react-icons/fa";
 import Avatar from 'react-avatar';
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { PiCalendarDotsBold } from "react-icons/pi";
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
   return (
     <div className="w-[62%] outline outline-1 hover:cursor-pointer outline-gray-500">
       <div className="sticky top-0 backdrop-blur-md z-10">
         <div>
-          <div className="py-4 px-2">
-            <FaArrowLeft className="text-xl" />
-          </div>
+          <Link to="/">
+            <div className="py-4 px-2">
+              <FaArrowLeft className="text-xl" />
+            </div>
+          </Link>
           <div className="px-12 flex flex-col mt-[-50px] items-start">
             <h1 className="font-bold text-xl">Kashyap Ghodasara</h1>
             <h2>25 Posts</h2>
