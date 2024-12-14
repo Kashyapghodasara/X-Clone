@@ -17,7 +17,8 @@
        - Renamed the folder from Backend to Back-End.
        - This took up 2 hours of my time 😵😖.
        
-       * SUGGESTION  : Always be cautious when copying snippets from older projects, as   they may have different configurations, which could impact your node_modules folder.
+       * SUGGESTION  : Always be cautious when copying snippets from older projects, as   
+       they may have different configurations, which could impact your node_modules folder.
 
 ## Day 6 - Thursday  -  12-12-2024
         - Create API's
