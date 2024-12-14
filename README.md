@@ -24,4 +24,12 @@
         - API for Register, Login, Logout
         - Tested on Postman
 
+## Day 7 - Friday  -  12-12-2024
+        - Create API's
+        - Authentication - Middleware
+        - API for createTweet, deleteTweet, Like-Dislike, Bookmark 
+        - Tested on Postman
+        - Setup Winston - Logger
+        - Hover on Avatar and Show Profile
+
 
