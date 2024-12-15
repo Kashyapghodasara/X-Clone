@@ -93,7 +93,7 @@ export const Login = async (req, res) => {
 
 
 export const Logout = async (req, res) => {
-    return res.cookie("token", "", {expiresIn: new Date(Date.now())}).json({
+    return res.cookie("token", "", { expiresIn: new Date(Date.now()) }).json({
         message: "Logout Successfully",
         success: true
     })
@@ -108,16 +108,16 @@ export const Bookmark = async (req, res) => {
         const user = await User.findById(loggedInUserId)
 
         // Check Bookmark is Present or Not
-        if(user.bookmark.includes(tweetId)){
+        if (user.bookmark.includes(tweetId)) {
             // Remove Bookmark
-            await User.findByIdAndUpdate(loggedInUserId, {$pull: {bookmark: tweetId}})
+            await User.findByIdAndUpdate(loggedInUserId, { $pull: { bookmark: tweetId } })
             return res.status(200).json({
                 message: "Bookmark Removed Successfully",
                 success: true
             })
         } else {
             // Add Bookmark
-            await User.findByIdAndUpdate(loggedInUserId, {$push: {bookmark: tweetId}})
+            await User.findByIdAndUpdate(loggedInUserId, { $push: { bookmark: tweetId } })
             return res.status(200).json({
                 message: "Bookmark Added Successfully",
                 success: true
@@ -126,5 +126,87 @@ export const Bookmark = async (req, res) => {
 
     } catch (error) {
         logger.critical("Error in Bookmark", error.message);
+    }
+}
+
+export const getProfile = async (req, res) => {
+    try {
+        const loggedInUserId = req.user.userId;
+        const user = await User.findById(loggedInUserId).select("-password")
+        console.log(user)
+    } catch (error) {
+        logger.critical("Profile Fetching Error", error.message)
+    }
+}
+
+export const getOtherUsers = async (req, res) => {
+    try {
+        const loggedInUserId = req.user.userId;
+        const allUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password")
+        logger.info(allUsers)
+    } catch (error) {
+        logger.critical("Other Users Fetching Error", error.message)
+    }
+}
+
+
+export const follow = async (req, res) => {
+    try {
+        const loggedInUserId = req.user.userId; // KG
+        const followerUserId = req.params.id; // KD
+
+        // Find logged-in user and follower user
+        const loggedInUser = await User.findById(loggedInUserId);
+        const followerUser = await User.findById(followerUserId);
+
+        // Check if the follower user exists
+        if (!followerUser) {
+            return res.status(401).json({ message: "User Not Found", success: false });
+        }
+
+        // Check if already following
+        if (!loggedInUser.followers.includes(followerUser._id)) {
+            // Update following and followers arrays
+            await loggedInUser.updateOne({ $push: { followers: followerUser._id } });
+            await followerUser.updateOne({ $push: { following: loggedInUser._id } });
+
+            res.status(200).json({
+                message: `${followerUser.name} is now following you (${loggedInUser.name})`,
+                success: true
+            });
+        } else {
+            return res.status(401).json({
+                message: `${followerUser.name} already followed you`,
+                success: false
+            });
+        }
+    } catch (error) {
+        logger.critical("Follow Error", error);
+        res.status(500).json({ message: "Internal Server Error", success: false });
+    }
+};
+
+
+export const Unfollow = async (req, res) => {
+    try {
+        const loggedInUserId = req.user.userId; // KG
+        const followerUserId = req.params.id // KD
+
+        const logginUser = await User.findById(loggedInUserId)
+        const followerUser = await User.findById(followerUserId)
+
+        if (!followerUser) return res.status(401).json({ message: "User Not Found", success: false })
+
+        if (followerUser.following.includes(logginUser._id)) {
+            await followerUser.updateOne({ $pull: { following: logginUser._id } });
+            await logginUser.updateOne({ $pull: { followers: followerUser._id } });
+
+
+            res.status(200).json({
+                message: `${followerUser.name} is now UnFollowing You (${logginUser.name})`
+            })
+        }
+    } catch (error) {
+        logger.critical("Error in Unfollow", error.message)
     }
 }
