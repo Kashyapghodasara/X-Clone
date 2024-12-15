@@ -33,4 +33,9 @@
         - Setup Winston - Logger
         - Hover on Avatar and Show Profile
 
+## Day 8 - Sunday  -  12-12-2024
+        - Create API's
+        - API for getProfile, showOtherUsers, Follower-Following
+
+
 
