@@ -101,7 +101,7 @@ export const Logout = async (req, res) => {
 
 export const Bookmark = async (req, res) => {
     try {
-        const loggedInUserId = req.user.userId;
+        const loggedInUserId = req.user._id;
         const tweetId = req.params.id;
 
         //Find User
@@ -131,7 +131,7 @@ export const Bookmark = async (req, res) => {
 
 export const getProfile = async (req, res) => {
     try {
-        const loggedInUserId = req.user.userId;
+        const loggedInUserId = req.user._id;
         const user = await User.findById(loggedInUserId).select("-password")
         console.log(user)
     } catch (error) {
@@ -141,7 +141,7 @@ export const getProfile = async (req, res) => {
 
 export const getOtherUsers = async (req, res) => {
     try {
-        const loggedInUserId = req.user.userId;
+        const loggedInUserId = req.user._id;
         const allUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password")
         logger.info(allUsers)
     } catch (error) {
@@ -152,7 +152,7 @@ export const getOtherUsers = async (req, res) => {
 
 export const follow = async (req, res) => {
     try {
-        const loggedInUserId = req.user.userId; // KG
+        const loggedInUserId = req.user._id; // KG
         const followerUserId = req.params.id; // KD
 
         // Find logged-in user and follower user
@@ -189,7 +189,7 @@ export const follow = async (req, res) => {
 
 export const Unfollow = async (req, res) => {
     try {
-        const loggedInUserId = req.user.userId; // KG
+        const loggedInUserId = req.user._id; // KG
         const followerUserId = req.params.id // KD
 
         const logginUser = await User.findById(loggedInUserId)
