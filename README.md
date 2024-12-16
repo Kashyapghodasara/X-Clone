@@ -38,4 +38,11 @@
         - API for getProfile, showOtherUsers, Follower-Following
 
 
+## Day 9 - Monday  -  16-12-2024
+        - Create API's
+        - API for createTweet, getAllTweet, getFollowingTweet
+        - Fix some issues and Bugs
+        - Backend Work is Completed Successfully ✔
+
+
 
