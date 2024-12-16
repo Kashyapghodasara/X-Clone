@@ -133,7 +133,17 @@ export const getProfile = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
         const user = await User.findById(loggedInUserId).select("-password")
-        console.log(user)
+
+        /* console.log(user) */
+        res.status(200).json({
+            message: "Profile Get Successfully",
+            success: true,
+            Name : user.name,
+            Username : user.username,
+            Email : user.email,
+            Followers : user.followers.length,
+            Followings : user.following.length
+        })
     } catch (error) {
         logger.critical("Profile Fetching Error", error.message)
     }
