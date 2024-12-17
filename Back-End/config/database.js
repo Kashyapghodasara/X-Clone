@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "../logger.js";
-dotenv.config({
-    path: "../config/.env"
-});
+dotenv.config();
 
 const DBConnect = () => {
     mongoose.connect(process.env.MONGO_URI).then(()=>{

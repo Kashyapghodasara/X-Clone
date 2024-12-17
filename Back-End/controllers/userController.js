@@ -40,6 +40,10 @@ const userRegister = async (req, res) => {
 
     } catch (error) {
         logger.critical("Error in userRegister", error.message);
+        res.status(500).json({
+            message: "Internal Server Error",
+            success: false
+        })
     }
 }
 
@@ -138,11 +142,11 @@ export const getProfile = async (req, res) => {
         res.status(200).json({
             message: "Profile Get Successfully",
             success: true,
-            Name : user.name,
-            Username : user.username,
-            Email : user.email,
-            Followers : user.followers.length,
-            Followings : user.following.length
+            Name: user.name,
+            Username: user.username,
+            Email: user.email,
+            Followers: user.followers.length,
+            Followings: user.following.length
         })
     } catch (error) {
         logger.critical("Profile Fetching Error", error.message)
