@@ -1,12 +1,53 @@
 import React, { useState } from 'react'
+import axios from 'axios'
+import Toast from "react-hot-toast"
+import { USER_API_ENDPOINT } from '../utils/constant'
+
 
 const Login = () => {
 
-  const [isLoggendIn, setLoggedIn] = useState(true)
+  const [isLoggedIn, setLoggedIn] = useState(true)
+  const [name, setName] = useState("")
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
   const SignupLoginHandler = () => {
-    setLoggedIn(!isLoggendIn)
+    setLoggedIn(!isLoggedIn)
   }
+
+  const loginSignupHandler = async (e) => {
+    // Unverified
+    if (!isLoggedIn) {
+      // Signup
+      try {
+        e.preventDefault();
+        const res = await axios.post(
+          `${USER_API_ENDPOINT}/register`
+          , // Concatenate endpoint string
+          { name, username, email, password }, // Request body - req.body
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true, // Include credentials like cookies
+          },
+        );
+        if (res.data.success === false) {
+          Toast.error(res.data.message)
+        } else {
+          console.log(res.data.message)
+          Toast.success("Signup Successful")
+          setLoggedIn(true)
+        }
+      } catch (error) {
+        console.log("Signup Error", error)
+      }
+    } else {
+      // Login
+    }
+  }
+
 
   return (
     <div>
@@ -22,7 +63,7 @@ const Login = () => {
             <h1 className="text-4xl font-bold mb-5 ">Happening now</h1>
 
             {/* Subtitle */}
-            <h2 className="text-3xl text-blue-200 font-bold mb-5">{isLoggendIn ? "LogIn" : "SignUp"}</h2>
+            <h2 className="text-3xl text-blue-200 font-bold mb-5">{isLoggedIn ? "LogIn" : "SignUp"}</h2>
 
             {/* Signup buttons */}
             <div className="space-y-4 w-full max-w-sm">
@@ -35,48 +76,65 @@ const Login = () => {
               <div>
                 <div className="ml-10 flex items-center justify-center">
                   {/* Form Container */}
-                  <form className="flex flex-col space-y-4 mb-5 w-full max-w-md p-8 rounded-lg shadow-lg">
-                    {/* Input 1 */}
+                  <form
+                    className="flex flex-col space-y-4 mb-5 w-full max-w-md p-8 rounded-lg shadow-lg"
+                    onSubmit={loginSignupHandler}
+                  >
 
-                    {!isLoggendIn && (
+
+                    {!isLoggedIn && (
                       <>
                         <input
                           type="text"
+                          value={name}
                           placeholder="Full Name"
+                          onChange={(e) => setName(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <input
                           type="text"
                           placeholder="Username"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <input
                           type="email"
                           placeholder="Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <input
                           type="password"
                           placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </>
                     )}
-                    {isLoggendIn ? (
+                    {isLoggedIn ? (
                       <>
                         <input
                           type="text"
                           placeholder="Username"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <input
                           type="email"
                           placeholder="Email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                         <input
                           type="password"
                           placeholder="Password"
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
                           className="w-full py-3 px-4 border border-gray-600 bg-transparent text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
                       </>
@@ -85,7 +143,7 @@ const Login = () => {
 
                     {/* Submit Button */}
                     <button className="items-center w-[60%] ml-12 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700">
-                      {isLoggendIn ? "Log In" : "Register"}
+                      {isLoggedIn ? "Log In" : "Register"}
                     </button>
                   </form>
                 </div>
@@ -100,9 +158,9 @@ const Login = () => {
 
             {/* Sign in */}
             <div className="text-sm">
-              {isLoggendIn ? "Don't Have an Account ? " : "Already Have an Account ? "}{" "}
+              {isLoggedIn ? "Don't Have an Account ? " : "Already Have an Account ? "}{" "}
               <button onClick={SignupLoginHandler} className="text-blue-400 hover:underline">
-                {isLoggendIn ? "Sign Up" : "Log In"}
+                {isLoggedIn ? "Sign Up" : "Log In"}
               </button>
             </div>
           </div>
