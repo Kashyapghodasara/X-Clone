@@ -40,13 +40,13 @@
 
 ## Day 9 - Monday  -  16-12-2024
         - Create API's
-        - Start Implementing API's
         - API for createTweet, getAllTweet, getFollowingTweet
         - Fix some issues and Bugs
         - Backend Work is Completed Successfully ✔
 
 ## Day 10 - Tuesday  -  17-12-2024
         - Create API's using Axios
+        - Start Implementing API's
         - Axios-API for createUser
         - Fix some issues and Bugs
 
