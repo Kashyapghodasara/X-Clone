@@ -83,7 +83,7 @@ export const Login = async (req, res) => {
         };
 
         // Create Token
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "4d" });
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "2d" });
 
         return res.cookie("token", token, { httpOnly: true }).status(200).json({
             message: "User LoggedIn Successfully ✔",
