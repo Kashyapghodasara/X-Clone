@@ -54,5 +54,11 @@
 ##  ~ Learning Redux
 -----------------------------------
 
+### Day 11 - Wednesday  -  25-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch userInfo and userProfile
+        - Fix some issues and Bugs
+
+
 
 
