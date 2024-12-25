@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import Toast from "react-hot-toast"
 import { USER_API_ENDPOINT } from '../utils/constant'
+import { useDispatch } from "react-redux"
+import { getUser } from '../redux/userSlice'
+import { useNavigate } from 'react-router-dom'
+
 
 
 const Login = () => {
@@ -11,6 +15,8 @@ const Login = () => {
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const SignupLoginHandler = () => {
     setLoggedIn(!isLoggedIn)
@@ -41,10 +47,32 @@ const Login = () => {
           setLoggedIn(true)
         }
       } catch (error) {
-        console.log("Signup Error", error)
+        Toast.error("Signup Error", error.response.data.message) || Toast.error("Signup Error", error)
       }
     } else {
       // Login
+      try {
+        e.preventDefault();
+        const res = await axios.post(
+          `${USER_API_ENDPOINT}/login`, { username, email, password }, // Request body - req.body
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true, // Include credentials like cookies
+          });
+          dispatch(getUser(res?.data?.findUser))
+
+        if (res.data.success) {
+          console.log(res)
+          navigate("/")
+          Toast.success(res.data.message)
+        } else {
+          Toast.error(res.data.message)
+        }
+      } catch (error) {
+        Toast.error("Login Error", error.response.data.message)
+      }
     }
   }
 

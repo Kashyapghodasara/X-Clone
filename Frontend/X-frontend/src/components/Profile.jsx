@@ -4,8 +4,15 @@ import Avatar from 'react-avatar';
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { PiCalendarDotsBold } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import { useGetProfile } from '../hooks/useGetProfile'
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
+
+  const { user, profile } = useSelector(store => store.user)     // This is initialState
+  // Create a custom Hooks
+  useGetProfile()
+
   return (
     <div className="w-[62%] outline outline-1 hover:cursor-pointer outline-gray-500">
       <div className="sticky top-0 backdrop-blur-md z-10">
@@ -16,7 +23,7 @@ const Profile = () => {
             </div>
           </Link>
           <div className="px-12 flex flex-col mt-[-50px] items-start">
-            <h1 className="font-bold text-xl">Kashyap Ghodasara</h1>
+            <h1 className="font-bold text-xl">{profile.name}</h1>
             <h2>25 Posts</h2>
           </div>
         </div>
@@ -51,25 +58,23 @@ const Profile = () => {
       </div>
 
       {/* Profile */}
-      <div>
-        <div className='p-5 mt-2 flex flex-col'>
-          <h1 className='font-bold text-2xl'>Kashyap Ghodasara</h1>
-          <h3 className='text-sm text-gray-500'>@kashyapghodasara</h3>
-          <div>
-            <RiVerifiedBadgeFill className='flex flex-row text-blue-600 text-lg w-[77%] mt-[-42px]' />
-          </div>
+      <div className='p-5 mt-2 flex flex-col'>
+        <div className='flex items-center'>
+          <h1 className='font-bold text-2xl'>{profile.name}</h1>
+          <RiVerifiedBadgeFill className='text-blue-600 text-lg ml-2' />
         </div>
-        <div className='px-5 mb-5'>
-          <p>This is My bio Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quas quos ducimus. Eaque repellat, magnam sunt quaerat aperiam reprehenderit vitae alias, doloribus debitis accusantium perferendis mollitia nulla commodi quas. Quasi.✨💻⚙✒</p>
-        </div>
-        <div className="flex flex-row gap-2 px-5 text-gray-500 items-center">
-          <PiCalendarDotsBold className='text-xl' />
-          <h1>Joined October 2024</h1>
-        </div>
-        <div className='flex flex-row items-center p-5 gap-4'>
-          <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>254</span>Following</h1>
-          <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>73</span>Followers</h1>
-        </div>
+        <h3 className='text-sm text-gray-500'>{profile.username}</h3>
+      </div>
+      <div className='px-5 mb-5'>
+        <p>This is My bio Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quas quos ducimus. Eaque repellat, magnam sunt quaerat aperiam reprehenderit vitae alias, doloribus debitis accusantium perferendis mollitia nulla commodi quas. Quasi.✨💻⚙✒</p>
+      </div>
+      <div className="flex flex-row gap-2 px-5 text-gray-500 items-center">
+        <PiCalendarDotsBold className='text-xl' />
+        <h1>{profile.createdAt}</h1>
+      </div>
+      <div className='flex flex-row items-center p-5 gap-4'>
+        <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>254</span>Following</h1>
+        <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>73</span>Followers</h1>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import Home from './components/Home'
 import Body from './components/Body'
 import { Toaster } from 'react-hot-toast'
 
+
 const App = () => {
   return (
     <div className='font-semibold'>
