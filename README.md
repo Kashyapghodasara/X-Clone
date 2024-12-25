@@ -47,7 +47,7 @@
 ### Day 10 - Tuesday  -  17-12-2024
         - Create API's using Axios
         - Start Implementing API's
-        - Axios-API for createUser
+        - Axios-API for registerUser, loginUser
         - Fix some issues and Bugs
 
 -----------------------------------

@@ -85,13 +85,14 @@ export const Login = async (req, res) => {
         // Create Token
         const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "2d" });
 
-        return res.cookie("token", token, { httpOnly: true }).status(200).json({
+        return res.cookie("token", token, {expiresIn: "2d", httpOnly: true }).status(200).json({
             message: "User LoggedIn Successfully ✔",
             message: `Welcome ${findUser.name}`,
+            findUser,      // You can send whole userInfo to Frontend
             success: true
         });
     } catch (error) {
-        logger.critical("Error in Login", error.message);
+        logger.critical("Error in Login", error.message);   
     }
 };
 
@@ -139,14 +140,16 @@ export const getProfile = async (req, res) => {
         const user = await User.findById(loggedInUserId).select("-password")
 
         /* console.log(user) */
-        res.status(200).json({
-            message: "Profile Get Successfully",
+        res.status(200).json({  
+            user
+            // Specially created for Effeciant API Response
+            /* message: "Profile Get Successfully",
             success: true,
             Name: user.name,
             Username: user.username,
             Email: user.email,
             Followers: user.followers.length,
-            Followings: user.following.length
+            Followings: user.following.length */
         })
     } catch (error) {
         logger.critical("Profile Fetching Error", error.message)
