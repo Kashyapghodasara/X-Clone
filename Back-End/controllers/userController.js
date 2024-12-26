@@ -85,14 +85,14 @@ export const Login = async (req, res) => {
         // Create Token
         const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "2d" });
 
-        return res.cookie("token", token, {expiresIn: "2d", httpOnly: true }).status(200).json({
+        return res.cookie("token", token, { expiresIn: "2d", httpOnly: true }).status(200).json({
             message: "User LoggedIn Successfully ✔",
             message: `Welcome ${findUser.name}`,
             findUser,      // You can send whole userInfo to Frontend
             success: true
         });
     } catch (error) {
-        logger.critical("Error in Login", error.message);   
+        logger.critical("Error in Login", error.message);
     }
 };
 
@@ -136,11 +136,11 @@ export const Bookmark = async (req, res) => {
 
 export const getProfile = async (req, res) => {
     try {
-        const loggedInUserId = req.user._id;
-        const user = await User.findById(loggedInUserId).select("-password")
+        const paramsUserId = req.params.id;
+        const user = await User.findById(paramsUserId).select("-password")
 
         /* console.log(user) */
-        res.status(200).json({  
+        res.status(200).json({
             user
             // Specially created for Effeciant API Response
             /* message: "Profile Get Successfully",
@@ -160,7 +160,17 @@ export const getOtherUsers = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
         const allUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password")
-        logger.info(allUsers)
+        if (!allUsers) {
+            return res.json({
+                message: "NO any User Found",
+                success: false
+            })
+        }
+        return res.json({
+            message: "User Find Successfully",
+            success: true,
+            allUsers      // Send allUser to frontend
+        })
     } catch (error) {
         logger.critical("Other Users Fetching Error", error.message)
     }
