@@ -66,7 +66,7 @@
         - Manage indivisual users pages
         - Prepare a Readmefile for Redux
         - Fix some issues and Bugs
-        - **My mind was grinding**
+        - My mind was grinding 😵, But still interesting 😁
 
 
 
