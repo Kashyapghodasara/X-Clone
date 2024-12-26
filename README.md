@@ -59,6 +59,12 @@
         - Using Redux to fetch userInfo and userProfile
         - Fix some issues and Bugs
 
+### Day 12 - Thursday  -  26-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch userInfo and userProfile
+        - Prepare a Readmefile for Redux
+        -Fix some issues and Bugs
+
 
 
 
