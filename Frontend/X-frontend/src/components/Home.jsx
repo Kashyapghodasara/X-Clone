@@ -1,11 +1,7 @@
 import React from 'react'
 import Leftsidebar from './Leftsidebar'
-import Feed from './Feed'
 import Rightsidebar from './Rightsidebar'
 import { Outlet } from 'react-router-dom'
-
-
-
 
 const Home = () => {
 

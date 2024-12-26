@@ -3,15 +3,16 @@ import { FaArrowLeft } from "react-icons/fa";
 import Avatar from 'react-avatar';
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { PiCalendarDotsBold } from "react-icons/pi";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
 import { useSelector } from 'react-redux'
 
 const Profile = () => {
 
   const { user, profile } = useSelector(store => store.user)     // This is initialState
-  // Call custom Hooks
-  useGetProfile()
+  const { id } = useParams();
+  useGetProfile(id)    // Call custom Hooks
+
 
   return (
     <div className="w-[62%] outline outline-1 outline-gray-500">
@@ -53,18 +54,20 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className='flex hover:cursor-pointer flex-row justify-self-end px-5 mt-[-50px]'>
-        <button className='text-md px-4 py-1 font-semibold bg-transparent  outline outline-2 hover:cursor-pointer rounded-full outline-gray-500'>Edit Profile</button>
+      <div className="p-5  flex flex-col">
+        {/* Profile Name and Edit Button in a Flex Container */}
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center">
+            <h1 className="font-bold text-2xl">{profile?.name}</h1>
+            <RiVerifiedBadgeFill className="text-blue-600 text-lg ml-2" />
+          </div>
+          <button className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
+            Edit Profile
+          </button>
+        </div>
+        <h3 className="text-sm text-gray-500">@{profile?.username}</h3>
       </div>
 
-      {/* Profile */}
-      <div className='p-5 mt-2 flex flex-col'>
-        <div className='flex items-center'>
-          <h1 className='font-bold text-2xl'>{profile?.name}</h1>
-          <RiVerifiedBadgeFill className='text-blue-600 text-lg ml-2' />
-        </div>
-        <h3 className='text-sm text-gray-500'>{profile?.username}</h3>
-      </div>
       <div className='px-5 mb-5'>
         <p>This is My bio Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quas quos ducimus. Eaque repellat, magnam sunt quaerat aperiam reprehenderit vitae alias, doloribus debitis accusantium perferendis mollitia nulla commodi quas. Quasi.✨💻⚙✒</p>
       </div>

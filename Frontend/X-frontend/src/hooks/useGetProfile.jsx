@@ -4,18 +4,18 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { getProfile } from '../redux/userSlice'
 
-export const useGetProfile = () => {
+export const useGetProfile = (id) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const res = await axios.get(`${USER_API_ENDPOINT}/profile`, { withCredentials: true })
+                const res = await axios.get(`${USER_API_ENDPOINT}/profile/${id}`, { withCredentials: true })
                 dispatch(getProfile(res?.data?.user))
             } catch (error) {
                 console.log(error)
             }
         }
-        fetchProfile()
-    }, []) // Add dependencies if needed
+        if (id) fetchProfile()
+    }, [id]) // Add id as a dependency
 }

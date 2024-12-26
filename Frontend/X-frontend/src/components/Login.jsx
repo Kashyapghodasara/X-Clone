@@ -64,7 +64,7 @@ const Login = () => {
           dispatch(getUser(res?.data?.findUser))
 
         if (res.data.success) {
-          console.log(res)
+          /* console.log(res) */
           navigate("/")
           Toast.success(res.data.message)
         } else {

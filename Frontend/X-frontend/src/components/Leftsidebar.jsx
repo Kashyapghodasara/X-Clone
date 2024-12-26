@@ -1,14 +1,22 @@
 import React from 'react';
 import Avatar from 'react-avatar';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { IoHome } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { LuMessageSquareText } from "react-icons/lu";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
+import { useGetProfile } from '../hooks/useGetProfile.jsx'
+import { useSelector } from 'react-redux'
+
 
 const Leftsidebar = () => {
+
+  const { user, profile } = useSelector(store => store.user)     // This is initialState
+  /* const {id} = useParams()
+  useGetProfile(id) */   // Call custom Hooks
+
   return (
     <div className="w-[26%] sticky top-0 h-screen overflow-y-auto ">
       <div>
@@ -47,7 +55,7 @@ const Leftsidebar = () => {
             <h1 className="text-[18.5px] ml-2">Message</h1>
           </div>
         </div>
-        <Link to={"/profile"}>
+        <Link to={`/profile/${user?._id}`}>  
           <div>
             <div className="flex item-center px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
               <RiAccountCircleFill className="text-[26px]" />
@@ -67,7 +75,7 @@ const Leftsidebar = () => {
           Post
         </button>
       </div>
-      <Link to={"/profile"}>
+      <Link to={`/profile/${user?._id}`}> 
         <div>
           <div className="flex items-center mt-12  hover:bg-zinc-900 rounded-full px-4 py-3 text-white cursor-pointer transition-all ease-in-out w-fit space-x-3">
             <Avatar
@@ -76,8 +84,8 @@ const Leftsidebar = () => {
               round={true}
             />
             <div>
-              <div className="font-semibold">Kashyap Ghodasara</div>
-              <div className="text-sm text-gray-400">@Kashyap_patel15</div>
+              <div className="font-semibold">{profile?.name}</div>
+              <div className="text-sm text-gray-400">{`@${profile?.username}`}</div>
             </div>
           </div>
         </div>
