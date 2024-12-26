@@ -61,9 +61,12 @@
 
 ### Day 12 - Thursday  -  26-12-2024
         - Start Implementing API's
-        - Using Redux to fetch userInfo and userProfile
+        - Using Redux to fetch userInfo, userProfile, getOtherUser
+        - Display all user details
+        - Manage indivisual users pages
         - Prepare a Readmefile for Redux
-        -Fix some issues and Bugs
+        - Fix some issues and Bugs
+        - **My mind was grinding**
 
 
 
