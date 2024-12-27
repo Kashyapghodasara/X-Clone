@@ -68,6 +68,12 @@
         - Fix some issues and Bugs
         - My mind was grinding 😵, But still interesting 😁
 
+### Day 13 - Friday  -  27-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch getAllTweet
+        - Display all Tweet details
+        - Manage indivisual users pages
+        - Fix some issues and Bugs
 
 
 
