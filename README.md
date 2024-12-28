@@ -75,5 +75,12 @@
         - Manage indivisual users pages
         - Fix some issues and Bugs
 
+### Day 14 - Saturday  -  28-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch getAllTweet, createPost
+        - Manage Tweet details dynamically
+        - Display all Tweet details with userDetails
+        - Fix some issues and Bugs
+
 
 
