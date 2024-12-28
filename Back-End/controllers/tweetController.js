@@ -1,6 +1,5 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import Tweet from "../models/tweetSchema.js"
+import User from "../models/userSchema.js"
 import logger from "../logger.js";
 import DBConnect from "../config/database.js";
 
@@ -17,10 +16,11 @@ export const createTweet = async (req, res) => {
                 success: false
             })
         }
-
+        const user = await User.findById(id).select("-password")
         const tweet = await Tweet.create({
             description,
-            userId: id
+            userId: id,
+            userDetails: user
         })
         return res.status(201).json({
             message: "Tweet Created Successfully",
