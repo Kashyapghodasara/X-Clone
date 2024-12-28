@@ -6,7 +6,6 @@ import { useGetTweet } from '../hooks/useGetTweet';
 const Tweet = () => {
     useGetTweet(); // Call custom Hooks
     const { allTweet } = useSelector(store => store.TWEET);
-    console.log(allTweet);
 
     const [hoveredTweetId, setHoveredTweetId] = useState(null);
 
@@ -67,9 +66,9 @@ const Tweet = () => {
 
                         <div className='flex flex-row items-center mt-0'>
                             <h1 className="m-4 mt-0 text-lg font-bold hover:underline hover:decoration-white hover:underline-offset-1 hover:cursor-pointer">
-                                Kashyap Ghodasara
+                            {t?.userDetails?.[0]?.name}
                             </h1>
-                            <h1 className='text-gray-600 m-4 ml-[-2px] mt-0'>@kashyappatel</h1>
+                            <h1 className='text-gray-600 m-4 ml-[-2px] mt-0'>{`@${t?.userDetails?.[0]?.username}`}</h1>
                             <h2 className='text-gray-600 text-sm m-4 ml-[-10px] mt-0'>•3h</h2>
                         </div>
                     </div>
