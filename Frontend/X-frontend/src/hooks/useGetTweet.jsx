@@ -14,7 +14,7 @@ export const useGetTweet = () => {
             try {
                 const res = await axios.get(`${TWEET_API_ENDPOINT}/getAllTweets`, { withCredentials: true }, {Headers: { "Content-Type": "application/json" }}
                 )
-                console.log(res)
+                /* console.log(res) */
                 dispatch(getAllTweet(res?.data?.Tweet))
             } catch (error) {
                 console.log(error)

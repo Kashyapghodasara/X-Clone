@@ -24,7 +24,7 @@ const Createpost = () => {
     const submitHandler = async () => {
         try {
             const res = await axios.post( `${TWEET_API_ENDPOINT}/create`, {description, id: user._id}, {withCredentials: true})
-            console.log(res) 
+            /* console.log(res)  */
             dispatch(getRefresh())
             if(res.data.success) {
                 toast.success(res.data.message)

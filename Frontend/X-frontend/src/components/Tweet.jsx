@@ -1,22 +1,50 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaRegComment, FaRegHeart, FaRegBookmark } from "react-icons/fa";
 import { useGetTweet } from '../hooks/useGetTweet';
+import axios from 'axios';
+import { TWEET_API_ENDPOINT } from '../utils/constant';
+import { getRefresh } from '../redux/tweetSlice';
+import toast from 'react-hot-toast';
 
 const Tweet = () => {
     useGetTweet(); // Call custom Hooks
     const { allTweet } = useSelector(store => store.TWEET);
+    const dispatch = useDispatch();
+
+    const [liked, setLiked] = useState(false);
+
+    const likeOrDislikeHandler = async (id) => {
+        try {
+            const res = await axios.put(`${TWEET_API_ENDPOINT}/like-dislike/${id}`, {},
+                { withCredentials: true })
+            dispatch(getRefresh())
+            setLiked(res.data.Like)
+            if (res.data.Like === true) {
+                return toast.success(res.data.message, {
+                    position: "top-left"
+                })
+            } else {
+                return toast.error(res.data.message, {
+                    position: "top-left"
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+            toast.error("Like - dislike error")
+        }
+    }
 
     const [hoveredTweetId, setHoveredTweetId] = useState(null);
-
-    const profileDetails = {
+   /*  const profileDetails = {
         name: 'John Doe',
         username: '@johndoe',
         bio: 'Web developer and coffee lover who enjoys Lorem ipsum dolor sit amet consectetur adipisicing elit...',
         followers: 1200,
         following: 180,
     };
-
+ */
     // Truncate bio to 25 words
     const truncateBio = (bio, wordLimit) => {
         const words = bio.split(' ');
@@ -44,29 +72,30 @@ const Tweet = () => {
                                 style={{ width: '50px', height: '50px' }}
                             />
 
-                            {/* Profile Details Box */}
-
-                            {/* userId === t?.userId   -----   pending*/}
-                            {hoveredTweetId === t?._id && (   // Done
-                                <div className="absolute left-0 mt-2 p-4 w-[200px] bg-black border rounded-lg shadow-md z-10">
-                                    <p className="font-bold">{profileDetails.name}</p>
-                                    <p className="text-gray-500 text-sm mb-2">{profileDetails.username}</p>
-                                    <p className="text-sm mt-1">{truncateBio(profileDetails.bio, 18)}</p>
-                                    <div className="flex mt-2 text-sm">
-                                        <div className="mr-4">
-                                            <span className="font-semibold">{profileDetails.followers}</span> Followers
-                                        </div>
-                                        <div>
-                                            <span className="font-semibold">{profileDetails.following}</span> Following
+                            {hoveredTweetId === t?._id ? (
+                                t?.userDetails?.[0]?._id === t?.userId && (
+                                    <div className="absolute left-0 mt-2 p-4 w-[200px] bg-black border rounded-lg shadow-md z-10">
+                                        <p className="font-bold">{t?.userDetails?.[0]?.name}</p>
+                                        <p className="text-gray-500 text-sm mb-2">{t?.userDetails?.[0]?.username}</p>
+                                        <p className="text-sm mt-1">{/* {truncateBio(profileDetails.bio, 18)} */}</p>
+                                        <div className="flex mt-2 text-sm">
+                                            <div className="mr-4">
+                                                <span className="font-semibold">{t?.userDetails?.[0]?.followers.length}</span> Followers
+                                            </div>
+                                            <div>
+                                                <span className="font-semibold">{t?.userDetails?.[0]?.following.length}</span> Following
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
+                                )
+                            ) : null}
+
+
                         </div>
 
                         <div className='flex flex-row items-center mt-0'>
                             <h1 className="m-4 mt-0 text-lg font-bold hover:underline hover:decoration-white hover:underline-offset-1 hover:cursor-pointer">
-                            {t?.userDetails?.[0]?.name}
+                                {t?.userDetails?.[0]?.name}
                             </h1>
                             <h1 className='text-gray-600 m-4 ml-[-2px] mt-0'>{`@${t?.userDetails?.[0]?.username}`}</h1>
                             <h2 className='text-gray-600 text-sm m-4 ml-[-10px] mt-0'>•3h</h2>
@@ -82,9 +111,13 @@ const Tweet = () => {
                                 <h1 className="group-hover:text-blue-500 transition-colors duration-300 ease-in-out">0</h1>
                             </div>
                             <div className="flex items-center space-x-2 group cursor-pointer">
-                                <FaRegHeart className="group-hover:text-red-500 transition-colors duration-300 ease-in-out" />
+                                <FaRegHeart
+                                    onClick={() => likeOrDislikeHandler(t?._id)}
+                                    className={`group-hover:text-red-500 transition-colors duration-300 ease-in-out`}
+                                />
                                 <h1 className="group-hover:text-red-500 transition-colors duration-300 ease-in-out">{t?.like.length}</h1>
                             </div>
+
                             <div className="flex items-center space-x-2 group cursor-pointer">
                                 <FaRegBookmark className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out" />
                                 <h1 className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out">0</h1>
