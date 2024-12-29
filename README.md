@@ -82,5 +82,11 @@
         - Display all Tweet details with userDetails
         - Fix some issues and Bugs
 
+### Day 15 - Sunday  -  29-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch Like-Dislike, userDetails
+        - If hovered on Avatar then display the that Avatar userInfo.
+        - Fix some issues and Bugs
+
 
 
