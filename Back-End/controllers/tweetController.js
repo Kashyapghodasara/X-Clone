@@ -55,14 +55,16 @@ export const like_dislike_Tweet = async (req, res) => {
             await Tweet.findByIdAndUpdate(tweetId, { $pull: { like: loggedInUserId } })
             return res.status(200).json({
                 message: "Tweet DisLike Successfully 💔",
-                success: true
+                success: true,
+                Like: false
             })
         } else {
             // Like
             await Tweet.findByIdAndUpdate(tweetId, { $push: { like: loggedInUserId } })
             return res.status(200).json({
-                message: "Tweet Like Successfully 🧡",
-                success: true
+                message: "Tweet Like Successfully ❤",
+                success: true,
+                Like: true
             })
         }
     } catch (error) {
