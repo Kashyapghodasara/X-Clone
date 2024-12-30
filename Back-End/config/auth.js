@@ -29,9 +29,6 @@ const isAuthentication = async (req, res, next) => {
         }
         /* console.log(userData) */
         req.user = userData
-        /*  Reusability: User details are available across all protected routes without re-verifying the token.
-         Convenience: Accessing user data from req.user simplifies code in route handlers. */
-
         next();
     } catch (error) {
         logger.critical(error.message)
@@ -39,3 +36,5 @@ const isAuthentication = async (req, res, next) => {
 }
 
 export default isAuthentication
+/*  Reusability: User details are available across all protected routes without re-verifying the token.
+ Convenience: Accessing user data from req.user simplifies code in route handlers. */
