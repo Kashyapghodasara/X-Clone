@@ -88,5 +88,10 @@
         - If hovered on Avatar then display the that Avatar userInfo.
         - Fix some issues and Bugs
 
+### Day 16 - Monday  -  30-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch deleteTweet, Logout
+        - Fix some issues and Bugs
+
 
 
