@@ -9,13 +9,40 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-hot-toast';
+import { USER_API_ENDPOINT } from '../utils/constant.jsx';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 
 const Leftsidebar = () => {
 
   const { user, profile } = useSelector(store => store.user)     // This is initialState
+  const navigate = useNavigate()
   /* const {id} = useParams()
   useGetProfile(id) */   // Call custom Hooks
+
+  const islogOut = async () => {
+    try {
+      const res = await axios.get(`${USER_API_ENDPOINT}/logout`, { withCredentials: true })
+      toast.success(res.data.message, {
+        style: {
+          border: '1px solid #2E8B57', // A soothing green for logout success
+          padding: '16px',
+          color: '#2E8B57',
+          backgroundColor: '#F0FFF0', // Light green background for a calm effect
+        },
+        iconTheme: {
+          primary: '#2E8B57',
+          secondary: '#FFFFFF',
+        },
+      });
+      navigate("/login")
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message)
+    }
+  }
 
   return (
     <div className="w-[26%] sticky top-0 h-screen overflow-y-auto ">
@@ -55,7 +82,7 @@ const Leftsidebar = () => {
             <h1 className="text-[18.5px] ml-2">Message</h1>
           </div>
         </div>
-        <Link to={`/profile/${user?._id}`}>  
+        <Link to={`/profile/${user?._id}`}>
           <div>
             <div className="flex item-center px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
               <RiAccountCircleFill className="text-[26px]" />
@@ -64,7 +91,7 @@ const Leftsidebar = () => {
           </div>
         </Link>
         <div>
-          <div className="flex item-center mb-1 px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
+          <div onClick={() => islogOut()} className="flex item-center mb-1 px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
             <MdLogout className="text-[26px]" />
             <h1 className="text-[18.5px] ml-2">Logout</h1>
           </div>
@@ -75,7 +102,7 @@ const Leftsidebar = () => {
           Post
         </button>
       </div>
-      <Link to={`/profile/${user?._id}`}> 
+      <Link to={`/profile/${user?._id}`}>
         <div>
           <div className="flex items-center mt-12  hover:bg-zinc-900 rounded-full px-4 py-3 text-white cursor-pointer transition-all ease-in-out w-fit space-x-3">
             <Avatar

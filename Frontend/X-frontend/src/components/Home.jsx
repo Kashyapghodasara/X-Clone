@@ -13,6 +13,7 @@ const Home = () => {
       <Leftsidebar />
       <Outlet />
       <Rightsidebar />
+    
     </div>
   )
 }

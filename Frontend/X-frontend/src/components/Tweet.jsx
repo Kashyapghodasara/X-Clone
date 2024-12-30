@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaRegComment, FaRegHeart, FaRegBookmark } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import { useGetTweet } from '../hooks/useGetTweet';
 import axios from 'axios';
 import { TWEET_API_ENDPOINT } from '../utils/constant';
@@ -10,6 +11,7 @@ import toast from 'react-hot-toast';
 const Tweet = () => {
     useGetTweet(); // Call custom Hooks
     const { allTweet } = useSelector(store => store.TWEET);
+    const { user } = useSelector(store => store.user);
     const dispatch = useDispatch();
 
     const [liked, setLiked] = useState(false);
@@ -36,23 +38,28 @@ const Tweet = () => {
         }
     }
 
-    const [hoveredTweetId, setHoveredTweetId] = useState(null);
-   /*  const profileDetails = {
-        name: 'John Doe',
-        username: '@johndoe',
-        bio: 'Web developer and coffee lover who enjoys Lorem ipsum dolor sit amet consectetur adipisicing elit...',
-        followers: 1200,
-        following: 180,
-    };
- */
-    // Truncate bio to 25 words
-    const truncateBio = (bio, wordLimit) => {
-        const words = bio.split(' ');
-        if (words.length > wordLimit) {
-            return words.slice(0, wordLimit).join(' ') + '...';
+    const deleteTweetHandler = async (id) => {
+        try {
+            const res = await axios.delete(`${TWEET_API_ENDPOINT}/delete/${id}`, { withCredentials: true })
+            console.log(res)
+            dispatch(getRefresh())
+            toast.success(res.data.message)
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response.data.message)
         }
-        return bio;
-    };
+    }
+
+    const [hoveredTweetId, setHoveredTweetId] = useState(null);
+
+    // Truncate bio to 25 words
+    /*   const truncateBio = (bio, wordLimit) => {
+          const words = bio.split(' ');
+          if (words.length > wordLimit) {
+              return words.slice(0, wordLimit).join(' ') + '...';
+          }
+          return bio;
+      }; */
 
     return (
         <div>
@@ -113,15 +120,21 @@ const Tweet = () => {
                             <div className="flex items-center space-x-2 group cursor-pointer">
                                 <FaRegHeart
                                     onClick={() => likeOrDislikeHandler(t?._id)}
-                                    className={`group-hover:text-red-500 transition-colors duration-300 ease-in-out`}
-                                />
-                                <h1 className="group-hover:text-red-500 transition-colors duration-300 ease-in-out">{t?.like.length}</h1>
+                                    className={`group-hover:text-pink-500 transition-colors duration-300 ease-in-out`} />
+                                <h1 className="group-hover:text-pink-500  transition-colors duration-300 ease-in-out">{t?.like.length}</h1>
                             </div>
 
                             <div className="flex items-center space-x-2 group cursor-pointer">
                                 <FaRegBookmark className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out" />
                                 <h1 className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out">0</h1>
                             </div>
+                            {user?._id === t?.userId && (
+                                <div className="flex items-center space-x-2 text-xl group cursor-pointer">
+                                    < MdDelete
+                                        onClick={() => deleteTweetHandler(t?._id)}
+                                        className="group-hover:text-red-600 transition-colors duration-300 ease-in-out" />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
