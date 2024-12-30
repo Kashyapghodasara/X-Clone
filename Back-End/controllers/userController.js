@@ -7,6 +7,13 @@ import jwt from "jsonwebtoken";
 DBConnect();
 
 
+export const mainRoute = (req, res) => {
+    const token = req.cookies.token;
+    if (!token) { 
+        return res.redirect("/login");
+    }
+}
+
 const userRegister = async (req, res) => {
     try {
         const { name, username, email, password } = req.body;
@@ -83,9 +90,9 @@ export const Login = async (req, res) => {
         };
 
         // Create Token
-        const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "2d" });
+        const token = jwt.sign(tokenData, process.env.JWT_SECRET_KEY, { expiresIn: "1h" });
 
-        return res.cookie("token", token, { expiresIn: "2d", httpOnly: true }).status(200).json({
+        return res.cookie("token", token, { expiresIn: "1h", httpOnly: true }).status(200).json({
             message: "User LoggedIn Successfully ✔",
             message: `Welcome ${findUser.name}`,
             findUser,      // You can send whole userInfo to Frontend

@@ -11,23 +11,24 @@ const isAuthentication = async (req, res, next) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.status(401).json({
+            res.status(401).json({
                 message: "Please Login First",
                 success: false
-            })
+            });
+            return res.redirect("/login"); // This ensures the redirect happens after the JSON response.
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)
-        /* console.log(decoded) // It will give "userId" */
-
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY)     /* console.log(decoded) // It will give "userId" */
+      
         const userData = await User.findById(decoded.userId)
         if (!userData) {
-            return res.status(401).json({
+             res.status(401).json({
                 message: "User Not Found",
                 success: false
             })
+            return res.redirect("/login")
+            
         }
-        /* console.log(userData) */
         req.user = userData
         next();
     } catch (error) {
