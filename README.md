@@ -1,5 +1,5 @@
 ### Day 1 - Saturday  -  07-12-2024
-        - Create a Folder Structure
+        - Create a Folder Structure (Frontend)
         - Create a Leftsidebar and Creatpost
 
 ### Day 2 - Sunday  -  08-12-2024
@@ -91,6 +91,11 @@
 ### Day 16 - Monday  -  30-12-2024
         - Start Implementing API's
         - Using Redux to fetch deleteTweet, Logout
+        - Fix some issues and Bugs
+
+### Day 17 - Tuesday  -  31-12-2024
+        - Start Implementing API's
+        - Using Redux to fetch forYou and Following Tweet and Display Them
         - Fix some issues and Bugs
 
 
