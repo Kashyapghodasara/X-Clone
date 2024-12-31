@@ -96,6 +96,7 @@
 ### Day 17 - Tuesday  -  31-12-2024
         - Start Implementing API's
         - Using Redux to fetch forYou and Following Tweet and Display Them
+        - Show total posts on top of the profile page
         - Fix some issues and Bugs
 
 
