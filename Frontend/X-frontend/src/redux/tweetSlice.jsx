@@ -4,7 +4,8 @@ export const tweetSlice = createSlice({
     name: "TWEET",
     initialState: {
         allTweet: null,
-        refresh: false
+        refresh: false,
+        isActive: true
     },
     reducers: {
         getAllTweet: (state, action) => {
@@ -12,9 +13,12 @@ export const tweetSlice = createSlice({
         },
         getRefresh: (state) => {
             state.refresh = !state.refresh
+        },
+        getIsActive: (state, action) => {
+            state.isActive = action.payload
         }
     }
 })
 
-export const {getAllTweet, getRefresh} = tweetSlice.actions;
+export const {getAllTweet, getRefresh, getIsActive} = tweetSlice.actions;
 export default tweetSlice.reducer

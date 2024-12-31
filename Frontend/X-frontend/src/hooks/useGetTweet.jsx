@@ -7,19 +7,36 @@ import { getAllTweet, getRefresh } from '../redux/tweetSlice'
 
 export const useGetTweet = () => {
     const dispatch = useDispatch()
-    const { refresh } = useSelector(store => store.TWEET)
+    const { refresh, isActive } = useSelector(store => store.TWEET)
 
-    useEffect(() => {
-        const fetchTweets = async () => {
-            try {
-                const res = await axios.get(`${TWEET_API_ENDPOINT}/getAllTweets`, { withCredentials: true }, {Headers: { "Content-Type": "application/json" }}
-                )
-                /* console.log(res) */
-                dispatch(getAllTweet(res?.data?.Tweet))
-            } catch (error) {
-                console.log(error)
-            }
+
+    const followingHandler = async () => {
+        try {
+            const res = await axios.get(`${TWEET_API_ENDPOINT}/getFollowingTweet`, { withCredentials: true })
+            console.log(res)
+            dispatch(getAllTweet(res.data.data))
+        } catch (error) {
+            console.log(error)
+            toast.error(res.data.message)
         }
-        fetchTweets()
-    }, [refresh]) // Add id as a dependency
+    }
+
+    const fetchTweets = async () => {
+        try {
+            const res = await axios.get(`${TWEET_API_ENDPOINT}/getAllTweets`, { withCredentials: true }, { Headers: { "Content-Type": "application/json" } }
+            )
+            /* console.log(res) */
+            dispatch(getAllTweet(res?.data?.Tweet))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {    // For managing those, we create a isActive variable in Store
+        if (isActive) {
+            fetchTweets()
+        } else {
+            followingHandler()
+        }
+    }, [isActive, refresh]) // Add id as a dependency
 }
