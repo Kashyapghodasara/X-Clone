@@ -7,13 +7,6 @@ import jwt from "jsonwebtoken";
 DBConnect();
 
 
-export const mainRoute = (req, res) => {
-    const token = req.cookies.token;
-    if (!token) { 
-        return res.redirect("/login");
-    }
-}
-
 const userRegister = async (req, res) => {
     try {
         const { name, username, email, password } = req.body;
