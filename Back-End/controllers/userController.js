@@ -111,6 +111,8 @@ export const Logout = async (req, res) => {
     })
 }
 
+
+
 export const Bookmark = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
@@ -186,34 +188,35 @@ export const getOtherUsers = async (req, res) => {
 
 export const follow = async (req, res) => {
     try {
-        const loggedInUserId = req.user._id; // KG
-        const followerUserId = req.params.id; // KD
+        const loggedInUserId = req.user._id; // User who is logged in
+        const followedUserId = req.params.id; // User to be followed
 
-        // Find logged-in user and follower user
+        // Find the logged-in user and the user to be followed
         const loggedInUser = await User.findById(loggedInUserId);
-        const followerUser = await User.findById(followerUserId);
+        const followedUser = await User.findById(followedUserId);
 
-        // Check if the follower user exists
-        if (!followerUser) {
-            return res.status(401).json({ message: "User Not Found", success: false });
+        // Check if the followed user exists
+        if (!followedUser) {
+            return res.status(404).json({ message: "User Not Found", success: false });
         }
 
-        // Check if already following
-        if (!loggedInUser.followers.includes(followerUser._id)) {
-            // Update following and followers arrays
-            await loggedInUser.updateOne({ $push: { followers: followerUser._id } });
-            await followerUser.updateOne({ $push: { following: loggedInUser._id } });
-
-            res.status(200).json({
-                message: `${followerUser.name} is now following you (${loggedInUser.name})`,
-                success: true
-            });
-        } else {
-            return res.status(401).json({
-                message: `${followerUser.name} already followed you`,
+        // Check if the logged-in user is already following the followed user
+        if (loggedInUser.following.includes(followedUser._id)) {
+            return res.status(400).json({
+                message: `You are already following ${followedUser.name}.`,
                 success: false
             });
         }
+            
+        // Update following and followers arrays
+        await loggedInUser.updateOne({ $push: { following: followedUser._id } });
+        await followedUser.updateOne({ $push: { followers: loggedInUser._id } });
+
+        return res.status(200).json({
+            message: `You are now following ${followedUser.name}.`,
+            success: true
+        });
+
     } catch (error) {
         logger.critical("Follow Error", error);
         res.status(500).json({ message: "Internal Server Error", success: false });
