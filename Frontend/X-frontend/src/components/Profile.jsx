@@ -6,13 +6,22 @@ import { PiCalendarDotsBold } from "react-icons/pi";
 import { Link, useParams } from 'react-router-dom';
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
 import { useSelector } from 'react-redux'
+import { useState, useEffect } from 'react';
 
 const Profile = () => {
 
-  const { user, profile } = useSelector(store => store.user)     // This is initialState
+  const { user, profile } = useSelector(store => store.user)
+  const { allTweet } = useSelector(store => store.TWEET)     // This is initialState
   const { id } = useParams();
   useGetProfile(id)    // Call custom Hooks
 
+  const [profilePostCount, setProfilePostCount] = useState(0);
+
+  useEffect(() => {
+    // Calculate posts where the tweet's userId matches the profile's _id
+    const count = allTweet?.filter(tweet => tweet?.userId === profile?._id).length || 0;
+    setProfilePostCount(count);
+  }, [allTweet, profile]);
 
   return (
     <div className="w-[62%] outline outline-1 outline-gray-500">
@@ -25,7 +34,13 @@ const Profile = () => {
           </Link>
           <div className="px-12 flex flex-col mt-[-50px] items-start">
             <h1 className="font-bold text-xl">{profile?.name}</h1>
-            <h2>25 Posts</h2>
+            {
+              profilePostCount > 0 ? (
+                <h2>{`${profilePostCount} Posts`}</h2>
+              ) : (
+                <h2>0 Posts Available</h2>
+              )
+            }
           </div>
         </div>
       </div>
@@ -61,9 +76,24 @@ const Profile = () => {
             <h1 className="font-bold text-2xl">{profile?.name}</h1>
             <RiVerifiedBadgeFill className="text-blue-600 text-lg ml-2" />
           </div>
-          <button className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
-            Edit Profile
-          </button>
+          {
+            profile?._id === user?._id ? (
+              <button className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
+                Edit Profile
+              </button>
+            ) : (
+              user?.following.includes(profile?._id) ? (
+                <button className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
+                  Following
+                </button>
+              ) : (
+                <button className="text-md text-black px-4 py-1 font-semibold bg-white outline outline-2 hover:cursor-pointer rounded-full">
+                  Follow
+                </button>
+              )
+            )
+          }
+
         </div>
         <h3 className="text-sm text-gray-500">@{profile?.username}</h3>
       </div>
