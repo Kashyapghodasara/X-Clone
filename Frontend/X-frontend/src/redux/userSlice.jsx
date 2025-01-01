@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const userSlice = createSlice ({
+export const userSlice = createSlice({
     name: "user",
     initialState: {
         user: null,
@@ -9,16 +9,27 @@ export const userSlice = createSlice ({
     },
     reducers: {      // It has multiple actions
         getUser: (state, action) => {
-            state.user = action.payload    // same as req.body
+            state.user = action.payload;    // same as req.body
         },
         getOtherUsers: (state, action) => {
-            state.otherUsers = action.payload
+            state.otherUsers = action.payload;
         },
         getProfile: (state, actions) => {
-            state.profile = actions.payload
+            state.profile = actions.payload;
+        },
+        followingUpdate: (state, action) => {
+            if (state.user && state.user.following) {  // Added a check here
+                if (state.user.following.includes(action.payload)) {
+                    // Unfollow
+                    state.user.following = state.user.following.filter((iId) => iId !== action.payload);
+                } else {
+                    // Follow
+                    state.user.following.push(action.payload);
+                }
+            }
         }
     }
-})
+});
 
-export const {getUser, getOtherUsers, getProfile} = userSlice.actions;
-export default userSlice.reducer
+export const { getUser, getOtherUsers, getProfile, followingUpdate } = userSlice.actions;
+export default userSlice.reducer;

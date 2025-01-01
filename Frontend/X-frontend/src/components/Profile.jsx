@@ -5,8 +5,13 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { PiCalendarDotsBold } from "react-icons/pi";
 import { Link, useParams } from 'react-router-dom';
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast'
+import axios from 'axios';
+import { USER_API_ENDPOINT } from '../utils/constant.jsx';
+import { followingUpdate } from '../redux/userSlice.jsx';
+import { getRefresh } from '../redux/tweetSlice.jsx';
 
 const Profile = () => {
 
@@ -14,6 +19,7 @@ const Profile = () => {
   const { allTweet } = useSelector(store => store.TWEET)     // This is initialState
   const { id } = useParams();
   useGetProfile(id)    // Call custom Hooks
+  const dispatch = useDispatch()
 
   const [profilePostCount, setProfilePostCount] = useState(0);
 
@@ -22,6 +28,55 @@ const Profile = () => {
     const count = allTweet?.filter(tweet => tweet?.userId === profile?._id).length || 0;
     setProfilePostCount(count);
   }, [allTweet, profile]);
+
+
+  /* const follow_unfollow_Handler = async () => {
+    if (user?.following?.includes(id)) {
+      // Unfollow
+      try {
+        const res = await axios.post(`${USER_API_ENDPOINT}/unfollow/${id}`, {}, { withCredentials: true });
+        console.log(res);
+        toast.success(res.data.message);
+        dispatch(followingUpdate(id))
+        dispatch(getRefresh())
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "An error occurred");
+      }
+    } else {
+      // Follow
+      try {
+        const res = await axios.post(`${USER_API_ENDPOINT}/follow/${id}`, {}, { withCredentials: true });
+        console.log(res);
+        toast.success(res.data.message);
+        dispatch(followingUpdate(id))
+        dispatch(getRefresh())
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response?.data?.message || "An error occurred");
+      }
+    }
+  };
+ */
+
+
+  const follow_unfollow_Handler = async () => {
+    try {
+      const endpoint = user?.following.includes(id)
+        ? `${USER_API_ENDPOINT}/unfollow/${id}`
+        : `${USER_API_ENDPOINT}/follow/${id}`;
+
+      const res = await axios.post(endpoint, {}, { withCredentials: true });
+      console.log("Response:", res.data);
+
+      toast.success(res.data.message);
+      dispatch(followingUpdate(id));
+      dispatch(getRefresh());
+    } catch (error) {
+      console.error("Error:", error?.response?.data || error?.message);
+      toast.error(error?.response?.data?.message || "An error occurred");
+    }
+  };
 
   return (
     <div className="w-[62%] outline outline-1 outline-gray-500">
@@ -82,15 +137,15 @@ const Profile = () => {
                 Edit Profile
               </button>
             ) : (
-              user?.following.includes(profile?._id) ? (
-                <button className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
-                  Following
-                </button>
-              ) : (
-                <button className="text-md text-black px-4 py-1 font-semibold bg-white outline outline-2 hover:cursor-pointer rounded-full">
-                  Follow
-                </button>
-              )
+              <button
+                onClick={follow_unfollow_Handler}
+                className={`text-md px-4 py-1 font-semibold ${user?.following.includes(id)
+                  ? "bg-transparent outline outline-2 outline-gray-500"
+                  : "text-black bg-white outline outline-2"
+                  } hover:cursor-pointer rounded-full`}
+              >
+                {user?.following.includes(id) ? "Following" : "Follow"}
+              </button>
             )
           }
 
