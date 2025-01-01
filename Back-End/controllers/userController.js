@@ -219,24 +219,37 @@ export const follow = async (req, res) => {
 
 export const Unfollow = async (req, res) => {
     try {
-        const loggedInUserId = req.user._id; // KG
-        const followerUserId = req.params.id // KD
+        const loggedInUserId = req.user._id; // User who is logged in
+        const followedUserId = req.params.id; // User to be unfollowed
 
-        const logginUser = await User.findById(loggedInUserId)
-        const followerUser = await User.findById(followerUserId)
+        // Find the logged-in user and the followed user
+        const loggedInUser = await User.findById(loggedInUserId);
+        const followedUser = await User.findById(followedUserId);
 
-        if (!followerUser) return res.status(401).json({ message: "User Not Found", success: false })
-
-        if (followerUser.following.includes(logginUser._id)) {
-            await followerUser.updateOne({ $pull: { following: logginUser._id } });
-            await logginUser.updateOne({ $pull: { followers: followerUser._id } });
-
-
-            res.status(200).json({
-                message: `${followerUser.name} is now UnFollowing You (${logginUser.name})`
-            })
+        // Check if the followed user exists
+        if (!followedUser) {
+            return res.status(404).json({ message: "User Not Found", success: false });
         }
+
+        // Check if the logged-in user is actually following the followed user
+        if (!loggedInUser.following.includes(followedUser._id)) {
+            return res.status(400).json({
+                message: `You are not following ${followedUser.name}.`,
+                success: false
+            });
+        }
+
+        // Update following and followers arrays
+        await loggedInUser.updateOne({ $pull: { following: followedUser._id } });
+        await followedUser.updateOne({ $pull: { followers: loggedInUser._id } });
+
+        return res.status(200).json({
+            message: `You have unfollowed ${followedUser.name}.`,
+            success: true
+        });
+
     } catch (error) {
-        logger.critical("Error in Unfollow", error.message)
+        logger.critical("Unfollow Error", error);
+        return res.status(500).json({ message: "Internal Server Error", success: false });
     }
-}
+};
