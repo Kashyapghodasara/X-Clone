@@ -99,5 +99,12 @@
         - Show total posts on top of the profile page
         - Fix some issues and Bugs
 
+### Day 18 - Wednesday  -  01-01-2025
+        - Start Implementing API's
+        - Using Redux to fetch Follow and Unfollow
+        - Manage Follow and Unfollow Functionality
+        - Fix some issues and Bugs
+        - Follow-Unfollow breaks my mind. And I breaks ChatGPT's mind 😁🥴
+
 
 
