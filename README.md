@@ -106,5 +106,12 @@
         - Fix some issues and Bugs
         - Follow-Unfollow breaks my mind. And I breaks ChatGPT's mind 😁🥴
 
+### Day 19 - Thursday  -  02-01-2025
+        - Start Implementing API's
+        - Persist Redux store using
+        - Create Protected Route
+        - Manages date and time formats
+        - Fix issues and Bug
+
 
 
