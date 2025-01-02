@@ -8,16 +8,20 @@ import { LuMessageSquareText } from "react-icons/lu";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { MdLogout } from "react-icons/md";
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-hot-toast';
 import { USER_API_ENDPOINT } from '../utils/constant.jsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
+import { getOtherUsers, getProfile, getUser } from '../redux/userSlice.jsx';
+import { getAllTweet } from '../redux/tweetSlice.jsx';
 
 
 const Leftsidebar = () => {
 
-  const { user, profile } = useSelector(store => store.user)     // This is initialState
+  const { user, profile } = useSelector(store => store.user) 
+  const { allTweet } = useSelector(store => store.TWEET) 
+  const dispatch = useDispatch()    // This is initialState
   const navigate = useNavigate()
   /* const {id} = useParams()
   useGetProfile(id) */   // Call custom Hooks
@@ -25,6 +29,10 @@ const Leftsidebar = () => {
   const islogOut = async () => {
     try {
       const res = await axios.get(`${USER_API_ENDPOINT}/logout`, { withCredentials: true })
+      dispatch(getUser(null))
+      dispatch(getProfile(null))
+      dispatch(getOtherUsers(null))
+      dispatch(getAllTweet(null))
       toast.success(res.data.message, {
         style: {
           border: '1px solid #2E8B57', // A soothing green for logout success

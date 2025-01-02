@@ -4,11 +4,35 @@ import { Link } from 'react-router-dom'
 import { IoSearch } from "react-icons/io5";
 import { useOtherUsers } from '../hooks/useOtherUsers';
 import { useSelector } from 'react-redux';
+import { USER_API_ENDPOINT } from '../utils/constant';
+import {followingUpdate} from '../redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { getRefresh } from '../redux/tweetSlice';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const Rightsidebar = () => {
 
   useOtherUsers()
-  const { otherUsers } = useSelector(store => store.user)
+  const { otherUsers, user } = useSelector(store => store.user)
+  const dispatch = useDispatch()
+
+  const follow_unfollow_Handler = async (id) => {
+    try {
+      const endpoint = user?.following.includes(id)
+        ? `${USER_API_ENDPOINT}/unfollow/${id}`
+        : `${USER_API_ENDPOINT}/follow/${id}`;
+
+      const res = await axios.post(endpoint, {}, { withCredentials: true });
+      console.log("Response:", res.data);
+      toast.success(res.data.message);
+      dispatch(followingUpdate(id));
+      dispatch(getRefresh());
+    } catch (error) {
+      console.error("Error:", error?.response?.data || error?.message);
+      toast.error(error?.response?.data?.message || "An error occurred");
+    }
+  }
 
   return (
     <div className='w-[25%] ml-12'>
@@ -47,55 +71,15 @@ const Rightsidebar = () => {
                   </Link>
                   <h3 className="text-sm font-normal">{`@${t?.username}`}</h3>
                 </div>
-                <button className="ml-auto bg-white text-black rounded-full px-4 py-[4px]">Follow</button>
+                <button onClick={() => follow_unfollow_Handler(t?._id)}
+                  className={`ml-auto rounded-full px-4 py-[4px] ${user?.following.includes(t?._id) ? "bg-transparent text-white outline outline-2 outline-gray-500" : "bg-white text-black"}`}>
+                  {user?.following.includes(t?._id) ? "Following" : "Follow"}
+                </button>
               </div>
               <hr className="border-t mb-2 border-gray-500" />
             </div>)
         })
         }
-
-
-
-        {/*   <div>
-          <div className="flex gap-1 items-center mb-3">
-            <Avatar
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s"
-              size="40"
-              round={true}
-            />
-            <div className="flex flex-col ml-2">
-              <h1 className="text-lg mt-[-5px]">Bruce Wayne</h1>
-              <h3 className="text-sm font-normal">@Batman</h3>
-            </div>
-            <button className="ml-auto bg-white text-black rounded-full px-4 py-[4px]">Follow</button>
-          </div>
-          <hr className="border-t mb-2 border-gray-500" />
-        </div>
-
-        <div>
-          <div className='flex gap-1 items-center mb-3'>
-            <Avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s' size='40' round={true} />
-            <div className='flex flex-col ml-2'>
-              <h1 className='text-lg mt-[-5px]'>Tony Stark</h1>
-              <h3 className='text-sm font-normal'>@Ironman</h3>
-            </div>
-            <button className='ml-auto bg-white text-black rounded-full px-4 py-[4px]'>Follow</button>
-          </div>
-          <hr className="border-t mb-2 border-gray-500" />
-        </div>
-
-        <div>
-          <div className='flex gap-1 items-center mb-3'>
-            <Avatar src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s' size='40' round={true} />
-            <div className='flex flex-col ml-2'>
-              <h1 className='text-lg mt-[-5px]'>Steve Rogers</h1>
-              <h3 className='text-sm font-normal'>@Captain America</h3>
-            </div>
-            <button className='ml-auto bg-white text-black rounded-full px-4 py-[4px]'>Follow</button>
-          </div>
-          <hr className="border-t mb-2 border-gray-500" />
-        </div>
- */}
 
       </div>
     </div>

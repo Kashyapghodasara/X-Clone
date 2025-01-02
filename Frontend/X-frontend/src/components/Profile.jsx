@@ -158,7 +158,7 @@ const Profile = () => {
       </div>
       <div className="flex flex-row gap-2 px-5 text-gray-500 items-center">
         <PiCalendarDotsBold className='text-xl' />
-        <h1>{profile?.createdAt}</h1>
+        <h1>{new Date(profile?.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long' })}</h1>
       </div>
       <div className='flex flex-row items-center p-5 gap-4'>
         <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.following.length}`}</span>Following</h1>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { TWEET_API_ENDPOINT } from '../utils/constant';
 import { getRefresh } from '../redux/tweetSlice';
 import toast from 'react-hot-toast';
+import { formatDistanceToNow } from 'date-fns';
 
 const Tweet = () => {
     useGetTweet(); // Call custom Hooks
@@ -96,8 +97,6 @@ const Tweet = () => {
                                     </div>
                                 )
                             ) : null}
-
-
                         </div>
 
                         <div className='flex flex-row items-center mt-0'>
@@ -105,7 +104,9 @@ const Tweet = () => {
                                 {t?.userDetails?.[0]?.name}
                             </h1>
                             <h1 className='text-gray-600 m-4 ml-[-2px] mt-0'>{`@${t?.userDetails?.[0]?.username}`}</h1>
-                            <h2 className='text-gray-600 text-sm m-4 ml-[-10px] mt-0'>•3h</h2>
+                            <h2 className='text-gray-600 text-sm m-4 ml-[-10px] mt-0'>
+                                {`• ${formatDistanceToNow(new Date(t?.createdAt), { addSuffix: true })}`}
+                            </h2>
                         </div>
                     </div>
                     <div className='MainTweet'>
