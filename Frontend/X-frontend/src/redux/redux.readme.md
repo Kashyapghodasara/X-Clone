@@ -30,3 +30,7 @@
 
 10. **Access Profile Data with `useSelector`**  
     - Use the `useSelector` hook to get the profile data from the Redux store.
+
+
+
+    

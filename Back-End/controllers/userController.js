@@ -140,19 +140,7 @@ export const getProfile = async (req, res) => {
     try {
         const paramsUserId = req.params.id;
         const user = await User.findById(paramsUserId).select("-password")
-
-        /* console.log(user) */
-        res.status(200).json({
-            user
-            // Specially created for Effeciant API Response
-            /* message: "Profile Get Successfully",
-            success: true,
-            Name: user.name,
-            Username: user.username,
-            Email: user.email,
-            Followers: user.followers.length,
-            Followings: user.following.length */
-        })
+        res.status(200).json({ user })
     } catch (error) {
         logger.critical("Profile Fetching Error", error.message)
     }
@@ -200,7 +188,7 @@ export const follow = async (req, res) => {
                 success: false
             });
         }
-            
+
         // Update following and followers arrays
         await loggedInUser.updateOne({ $push: { following: followedUser._id } });
         await followedUser.updateOne({ $push: { followers: loggedInUser._id } });
