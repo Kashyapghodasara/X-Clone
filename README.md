@@ -108,8 +108,16 @@
 
 ### Day 19 - Thursday  -  02-01-2025
         - Start Implementing API's
-        - Persist Redux store using
+        - Persist Redux store 
         - Create Protected Route
+        - Manages date and time formats
+        - Fix issues and Bug
+
+### Day 20 - Friday  -  03-01-2025
+        - Start Implementing API's
+        - Create Update value page
+        - Updating Schema
+        - Fetch details from Profile page to Updatepage
         - Manages date and time formats
         - Fix issues and Bug
 
