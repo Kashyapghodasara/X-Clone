@@ -4,6 +4,7 @@ import Home from './Home'
 import Login from './Login'
 import Feed from './Feed'
 import Profile from './Profile' 
+import Edit from './Edit'
 
 const Body = () => {
     const appRouter = createBrowserRouter([
@@ -19,6 +20,10 @@ const Body = () => {
                 {
                     path: "/profile/:id",
                     element: <Profile />
+                }, 
+                {
+                    path: "/editProfile",
+                    element: <Edit />
                 }
             ]
         },

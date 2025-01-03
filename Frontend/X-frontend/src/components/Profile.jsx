@@ -3,7 +3,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import Avatar from 'react-avatar';
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { PiCalendarDotsBold } from "react-icons/pi";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState, useEffect } from 'react';
@@ -20,6 +20,8 @@ const Profile = () => {
   const { id } = useParams();
   useGetProfile(id)    // Call custom Hooks
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+
 
   const [profilePostCount, setProfilePostCount] = useState(0);
 
@@ -133,7 +135,8 @@ const Profile = () => {
           </div>
           {
             profile?._id === user?._id ? (
-              <button className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
+              <button  onClick={() => {navigate('/editProfile')}} 
+              className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
                 Edit Profile
               </button>
             ) : (
@@ -154,7 +157,7 @@ const Profile = () => {
       </div>
 
       <div className='px-5 mb-5'>
-        <p>This is My bio Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minus quas quos ducimus. Eaque repellat, magnam sunt quaerat aperiam reprehenderit vitae alias, doloribus debitis accusantium perferendis mollitia nulla commodi quas. Quasi.✨💻⚙✒</p>
+        <p>{user?.description}</p>
       </div>
       <div className="flex flex-row gap-2 px-5 text-gray-500 items-center">
         <PiCalendarDotsBold className='text-xl' />
