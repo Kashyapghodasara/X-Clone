@@ -17,9 +17,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    birthdate: {
+        type: Date,
+        default: Date.now
+    },
     description: {
         type: String,
-        default: "Your Bio..."
+        default: "Your Bio...😎🙂"
+    },
+    location: {
+        type: String,
+        default: "India"
     },
     followers: {
         type: Array,

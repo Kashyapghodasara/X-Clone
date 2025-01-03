@@ -7,6 +7,25 @@ import jwt from "jsonwebtoken";
 DBConnect();
 
 
+export const updateProfile = async (res, res) => {
+    try {
+        const {fullname, birthdate, location, bio} = req.body;
+        if(!fullname && !birthdate && !location && !bio){
+            return res.status(401).json({
+                message: "All fields are required",
+                success: false
+            })
+            // Resume journey
+        }
+    } catch (error) {
+        console.log(error);
+        logger.error("Error occure in Update Profile", error.message)
+    }
+}
+
+
+
+
 const userRegister = async (req, res) => {
     try {
         const { name, username, email, password } = req.body;
