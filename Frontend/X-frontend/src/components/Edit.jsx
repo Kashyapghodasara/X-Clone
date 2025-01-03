@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Edit = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    birthdate: '',
-    location: '',
-    bio: '',
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const { profile, user } = useSelector(store => store.user)
+
+  const formatDate = (date) => {
+    if (!date) return '';
+    const d = new Date(date);
+    return d.toISOString().split('T')[0];
   };
+
+  const [formData, setFormData] = useState({
+    fullname: profile?.name,
+    birthdate: formatDate(profile?.birthdate),
+    location: profile?.location,
+    bio: profile?.description,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form Data Submitted:', formData);
-    // Add logic to send formData to your backend
+
   };
 
   return (
@@ -25,18 +30,18 @@ const Edit = () => {
       <form onSubmit={handleSubmit} className="space-y-4 ">
         {/* Username */}
         <div>
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-            Username
+          <label htmlFor="Name" className="block text-sm font-medium text-gray-700">
+            Fullname
           </label>
           <input
             type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            className="mt-1 block w-full bg-transparent p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter your username"
-            
+            id="Fullname"
+            name="fullname"
+            value={formData.fullname}
+            onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
+            className="mt-1 block w-full bg-transparent placeholder:text-white bg-[#272727] p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            placeholder="Enter your Fullname"
+
           />
         </div>
 
@@ -50,10 +55,11 @@ const Edit = () => {
             id="birthdate"
             name="birthdate"
             value={formData.birthdate}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            onChange={(e) => setFormData({ ...formData, birthdate: e.target.value })}
+            className="mt-1 block w-full p-2 bg-[#272727] placeholder:text-white border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
+
 
         {/* Location */}
         <div>
@@ -65,8 +71,8 @@ const Edit = () => {
             id="location"
             name="location"
             value={formData.location}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+            className="mt-1 block w-full p-2 placeholder:text-white bg-[#272727] bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter your location"
           />
         </div>
@@ -80,8 +86,8 @@ const Edit = () => {
             id="bio"
             name="bio"
             value={formData.bio}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+            className="mt-1 block w-full p-2 bg-[#272727] placeholder:text-white bg-transparent border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Write something about yourself"
             rows="3"
           ></textarea>

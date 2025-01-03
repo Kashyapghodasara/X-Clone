@@ -12,6 +12,9 @@ import axios from 'axios';
 import { USER_API_ENDPOINT } from '../utils/constant.jsx';
 import { followingUpdate } from '../redux/userSlice.jsx';
 import { getRefresh } from '../redux/tweetSlice.jsx';
+import { BsBalloonFill } from "react-icons/bs";
+import { FaLocationDot } from "react-icons/fa6";
+import { format } from 'date-fns';
 
 const Profile = () => {
 
@@ -135,8 +138,8 @@ const Profile = () => {
           </div>
           {
             profile?._id === user?._id ? (
-              <button  onClick={() => {navigate('/editProfile')}} 
-              className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
+              <button onClick={() => { navigate('/editProfile') }}
+                className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
                 Edit Profile
               </button>
             ) : (
@@ -159,10 +162,22 @@ const Profile = () => {
       <div className='px-5 mb-5'>
         <p>{user?.description}</p>
       </div>
-      <div className="flex flex-row gap-2 px-5 text-gray-500 items-center">
-        <PiCalendarDotsBold className='text-xl' />
-        <h1>{new Date(profile?.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long' })}</h1>
+      <div className='px-5 mb-5 items-center flex flex-row gap-1 text-gray-200 text-md'>
+        <FaLocationDot />
+        <p>{profile?.location}</p>
       </div>
+
+      <div className="flex flex-row gap-10 px-5 text-gray-500 items-center">
+        <div className='flex flex-row gap-1 items-center'>
+          <PiCalendarDotsBold className='text-xl' />
+          <h1>Joined {new Date(profile?.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long' })}</h1>
+        </div>
+        <div className='flex flex-row items-center gap-1'>
+          <BsBalloonFill className='item-center text-xl' />
+          <h1>{profile?.birthdate ? format(new Date(profile.birthdate), 'dd-MM-yyyy') : ''}</h1>
+        </div>
+      </div>
+
       <div className='flex flex-row items-center p-5 gap-4'>
         <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.following.length}`}</span>Following</h1>
         <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.followers.length}`}</span>Followers</h1>

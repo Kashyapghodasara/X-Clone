@@ -28,7 +28,7 @@ const Leftsidebar = () => {
 
   const islogOut = async () => {
     try {
-      const res = await axios.get(`${USER_API_ENDPOINT}/logout`, { withCredentials: true })
+      const res = await axios.get(`${USER_API_ENDPOINT}/logout`, {}, { withCredentials: true })
       dispatch(getUser(null))
       dispatch(getProfile(null))
       dispatch(getOtherUsers(null))
@@ -99,7 +99,7 @@ const Leftsidebar = () => {
           </div>
         </Link>
         <div>
-          <div onClick={() => islogOut()} className="flex item-center mb-1 px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
+          <div onClick={islogOut} className="flex item-center mb-1 px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
             <MdLogout className="text-[26px]" />
             <h1 className="text-[18.5px] ml-2">Logout</h1>
           </div>
