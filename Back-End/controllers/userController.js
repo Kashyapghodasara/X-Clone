@@ -11,23 +11,26 @@ export const updateProfile = async (req, res) => {
 
     try {
         const { fullname, birthdate, location, bio } = req.body;
-        const loggedInUserId = req.user._id
+        const loggedInUserId = req.params.id;
         if (!fullname && !birthdate && !location && !bio) {
             return res.status(401).json({
                 message: "All fields are required",
                 success: false
             })
         }
-        const findUser = User.findById(loggedInUserId)
+        const findUser = await User.findById(loggedInUserId)
         if (!findUser) return res.status(404).json({ message: "User not found", success: false })
 
-        findUser.findOneAndUpdate({
+        await User.findByIdAndUpdate(loggedInUserId, { $set : {
             name: fullname,
-            birthdate: birthdate,
-            location: location,
+            birthdate,
+            location,
             description: bio
-        }) // Resume journery
-        
+        }})
+        return res.status(200).json({
+            message: "Profile Updated Successfully",
+            success: true
+        })
     } catch (error) {
         console.log(error);
         logger.error("Error occure in Update Profile", error.message)

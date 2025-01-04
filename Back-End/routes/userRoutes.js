@@ -1,4 +1,4 @@
-import userRegister, { Bookmark, follow, getOtherUsers, getProfile, Login, Logout, Unfollow } from "../controllers/userController.js";
+import userRegister, { Bookmark, follow, getOtherUsers, getProfile, Login, Logout, Unfollow, updateProfile } from "../controllers/userController.js";
 import isAuthentication from "../config/auth.js";
 import express from "express";
 
@@ -12,6 +12,8 @@ router.route("/profile/:id").get(isAuthentication, getProfile)
 router.route("/getOtherUsers").get(isAuthentication, getOtherUsers)
 router.route("/follow/:id").post(isAuthentication, follow)
 router.route("/unfollow/:id").post(isAuthentication, Unfollow)
+router.route("/updateProfile/:id").post(isAuthentication, updateProfile)
+
 // Create Update value route
 
 
