@@ -121,5 +121,12 @@
         - Manages date and time formats
         - Fix issues and Bug
 
+### Day 21 - Saturday  -  04-01-2025
+        - Start Implementing API's
+        - Create Update value page
+        - Updating Schema
+        - Create a update Route
+        - Fix issues and Bug
+
 
 
