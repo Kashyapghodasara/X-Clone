@@ -138,7 +138,7 @@ const Profile = () => {
           </div>
           {
             profile?._id === user?._id ? (
-              <button onClick={() => { navigate('/editProfile') }}
+              <button onClick={() => { navigate(`/updateProfile/${profile._id}`) }}
                 className="text-md px-4 py-1 font-semibold bg-transparent outline outline-2 hover:cursor-pointer rounded-full outline-gray-500">
                 Edit Profile
               </button>

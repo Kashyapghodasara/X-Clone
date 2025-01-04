@@ -1,9 +1,14 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
+import { USER_API_ENDPOINT } from '../utils/constant';
+import {useNavigate} from 'react-router-dom'
 
 const Edit = () => {
 
   const { profile, user } = useSelector(store => store.user)
+  const navigate = useNavigate()
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -18,9 +23,19 @@ const Edit = () => {
     bio: profile?.description,
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form Data Submitted:', formData);
+    /* console.log('Form Data Submitted:', formData); */
+    try {
+      const res = await axios.post(`${USER_API_ENDPOINT}/updateProfile/${profile?._id}`)
+      console.log(res)
+      toast.success(res?.data?.message)
+      navigate(`/profile/${profile?._id}`)
+      // Error
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error)
+    }
 
   };
 
