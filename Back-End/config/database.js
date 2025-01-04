@@ -5,7 +5,7 @@ dotenv.config();
 
 const DBConnect = () => {
     mongoose.connect(process.env.MONGO_URI).then(()=>{
-        logger.debug("MongoDB Connected Successfully ⚙");
+        return logger.debug("MongoDB Connected Successfully ⚙");
     }).catch((error)=>{
         logger.critical("Connection Error", error.message);
     })

@@ -7,16 +7,27 @@ import jwt from "jsonwebtoken";
 DBConnect();
 
 
-export const updateProfile = async (res, res) => {
+export const updateProfile = async (req, res) => {
+
     try {
-        const {fullname, birthdate, location, bio} = req.body;
-        if(!fullname && !birthdate && !location && !bio){
+        const { fullname, birthdate, location, bio } = req.body;
+        const loggedInUserId = req.user._id
+        if (!fullname && !birthdate && !location && !bio) {
             return res.status(401).json({
                 message: "All fields are required",
                 success: false
             })
-            // Resume journey
         }
+        const findUser = User.findById(loggedInUserId)
+        if (!findUser) return res.status(404).json({ message: "User not found", success: false })
+
+        findUser.findOneAndUpdate({
+            name: fullname,
+            birthdate: birthdate,
+            location: location,
+            description: bio
+        }) // Resume journery
+        
     } catch (error) {
         console.log(error);
         logger.error("Error occure in Update Profile", error.message)
