@@ -21,7 +21,7 @@ export const updateProfile = async (req, res) => {
         const findUser = await User.findById(loggedInUserId)
         if (!findUser) return res.status(404).json({ message: "User not found", success: false })
 
-        await User.findByIdAndUpdate(loggedInUserId, { $set : {
+        const updatedProfile = await User.findByIdAndUpdate(loggedInUserId, { $set : {
             name: fullname,
             birthdate,
             location,
@@ -29,7 +29,8 @@ export const updateProfile = async (req, res) => {
         }})
         return res.status(200).json({
             message: "Profile Updated Successfully",
-            success: true
+            success: true,
+            updatedProfile
         })
     } catch (error) {
         console.log(error);
