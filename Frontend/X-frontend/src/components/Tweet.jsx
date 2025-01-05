@@ -85,7 +85,7 @@ const Tweet = () => {
                                     <div className="absolute left-0 mt-2 p-4 w-[200px] bg-black border rounded-lg shadow-md z-10">
                                         <p className="font-bold">{t?.userDetails?.[0]?.name}</p>
                                         <p className="text-gray-500 text-sm mb-2">{t?.userDetails?.[0]?.username}</p>
-                                        <p className="text-sm mt-1">{/* {truncateBio(profileDetails.bio, 18)} */}</p>
+                                        <p className="text-sm mt-1">{t?.userDetails?.[0]?.description}</p>
                                         <div className="flex mt-2 text-sm">
                                             <div className="mr-4">
                                                 <span className="font-semibold">{t?.userDetails?.[0]?.followers.length}</span> Followers

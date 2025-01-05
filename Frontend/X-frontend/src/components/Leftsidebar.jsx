@@ -119,8 +119,8 @@ const Leftsidebar = () => {
               round={true}
             />
             <div>
-              <div className="font-semibold">{user?.name}</div>
-              <div className="text-sm text-gray-400">{`@${user?.username}`}</div>
+              <div className="font-semibold">{profile?.name}</div>
+              <div className="text-sm text-gray-400">{`@${profile?.username}`}</div>
             </div>
           </div>
         </div>

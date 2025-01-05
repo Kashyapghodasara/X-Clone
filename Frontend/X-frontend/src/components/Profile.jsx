@@ -160,7 +160,7 @@ const Profile = () => {
       </div>
 
       <div className='px-5 mb-5'>
-        <p>{user?.description}</p>
+        <p>{profile?.description}</p>
       </div>
       <div className='px-5 mb-5 items-center flex flex-row gap-1 text-gray-200 text-md'>
         <FaLocationDot />

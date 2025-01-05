@@ -4,11 +4,13 @@ import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { USER_API_ENDPOINT } from '../utils/constant';
 import {useNavigate} from 'react-router-dom'
+import { getRefresh } from '../redux/tweetSlice';
 
 const Edit = () => {
 
   const { profile, user } = useSelector(store => store.user)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -27,9 +29,11 @@ const Edit = () => {
     e.preventDefault();
     /* console.log('Form Data Submitted:', formData); */
     try {
-      const res = await axios.post(`${USER_API_ENDPOINT}/updateProfile/${profile?._id}`)
+      axios.defaults.withCredentials = true;
+      const res = await axios.post(`${USER_API_ENDPOINT}/updateProfile/${profile?._id}`, formData)
       console.log(res)
       toast.success(res?.data?.message)
+      dispatch(getRefresh())
       navigate(`/profile/${profile?._id}`)
       // Error
     } catch (error) {
