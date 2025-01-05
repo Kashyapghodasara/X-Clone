@@ -128,5 +128,10 @@
         - Create a update Route
         - Fix issues and Bug
 
+### Day 22 - Sunday  -  05-01-2025
+        - Start Implementing API's
+        - Edit profile Done successfully
+        - Fix issues and Bug
+
 
 
