@@ -133,5 +133,10 @@
         - Edit profile Done successfully
         - Fix issues and Bugs
 
+### Day 23 - Monday  -  06-01-2025
+        - Start Implementing API's
+        - Create a Bookmark page
+        - Fix issues and Bugs
+
 
 
