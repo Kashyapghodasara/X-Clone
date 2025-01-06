@@ -6,6 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { LuMessageSquareText } from "react-icons/lu";
 import { RiAccountCircleFill } from "react-icons/ri";
+import { FaRegBookmark } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { useGetProfile } from '../hooks/useGetProfile.jsx'
 import { useSelector, useDispatch } from 'react-redux'
@@ -98,6 +99,14 @@ const Leftsidebar = () => {
             </div>
           </div>
         </Link>
+        <Link to={`/bookmark/${user?._id}`}>
+          <div>
+            <div className="flex item-center px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
+              <FaRegBookmark className="text-[26px]" />
+              <h1 className="text-[18.5px] ml-2">Bookmark</h1>
+            </div>
+          </div>
+        </Link>
         <div>
           <div onClick={islogOut} className="flex item-center mb-1 px-4 py-[15px] hover:bg-full hover:rounded-full hover:cursor-pointer hover:bg-zinc-700">
             <MdLogout className="text-[26px]" />
@@ -112,7 +121,7 @@ const Leftsidebar = () => {
       </div>
       <Link to={`/profile/${user?._id}`}>
         <div>
-          <div className="flex items-center mt-12  hover:bg-zinc-900 rounded-full px-4 py-3 text-white cursor-pointer transition-all ease-in-out w-fit space-x-3">
+          <div className="flex items-center mt-4 hover:bg-zinc-900 rounded-full px-4 py-3 text-white cursor-pointer transition-all ease-in-out w-fit space-x-3">
             <Avatar
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s"
               size="45"

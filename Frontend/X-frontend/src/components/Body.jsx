@@ -5,7 +5,7 @@ import Login from './Login'
 import Feed from './Feed'
 import Profile from './Profile'
 import Edit from './Edit'
-
+import Bookmark from './Bookmark'
 const Body = () => {
     const appRouter = createBrowserRouter([
         // This is an Array of Object
@@ -28,6 +28,10 @@ const Body = () => {
                 {
                     path: "/updateProfile/:id",
                     element: <Edit />
+                }, 
+                {
+                    path: "/bookmark/:id",
+                    element: <Bookmark />
                 }
             ]
         },

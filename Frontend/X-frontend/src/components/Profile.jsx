@@ -35,35 +35,6 @@ const Profile = () => {
   }, [allTweet, profile]);
 
 
-  /* const follow_unfollow_Handler = async () => {
-    if (user?.following?.includes(id)) {
-      // Unfollow
-      try {
-        const res = await axios.post(`${USER_API_ENDPOINT}/unfollow/${id}`, {}, { withCredentials: true });
-        console.log(res);
-        toast.success(res.data.message);
-        dispatch(followingUpdate(id))
-        dispatch(getRefresh())
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response?.data?.message || "An error occurred");
-      }
-    } else {
-      // Follow
-      try {
-        const res = await axios.post(`${USER_API_ENDPOINT}/follow/${id}`, {}, { withCredentials: true });
-        console.log(res);
-        toast.success(res.data.message);
-        dispatch(followingUpdate(id))
-        dispatch(getRefresh())
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response?.data?.message || "An error occurred");
-      }
-    }
-  };
- */
-
 
   const follow_unfollow_Handler = async () => {
     try {
