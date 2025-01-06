@@ -131,7 +131,7 @@
 ### Day 22 - Sunday  -  05-01-2025
         - Start Implementing API's
         - Edit profile Done successfully
-        - Fix issues and Bug
+        - Fix issues and Bugs
 
 
 
