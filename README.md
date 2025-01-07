@@ -138,5 +138,9 @@
         - Create a Bookmark page
         - Fix issues and Bugs
 
+### Day 24 - Tuesday  -  07-01-2025
+        - Do noting just grinding myself
+        - i'm stuck into my codebase
+
 
 
