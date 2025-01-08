@@ -142,5 +142,10 @@
         - Do noting just grinding myself
         - i'm stuck into my codebase
 
+### Day 25 - Wednesday  -  08-01-2025
+        - Implementing getBookmark API
+        - Get, Add and Remove bookmark functionality
+        - Fix issues and Bugs
+
 
 
