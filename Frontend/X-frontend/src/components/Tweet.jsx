@@ -4,7 +4,7 @@ import { FaRegComment, FaRegHeart, FaRegBookmark } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { useGetTweet } from '../hooks/useGetTweet';
 import axios from 'axios';
-import { TWEET_API_ENDPOINT } from '../utils/constant';
+import { TWEET_API_ENDPOINT, USER_API_ENDPOINT } from '../utils/constant';
 import { getRefresh } from '../redux/tweetSlice';
 import toast from 'react-hot-toast';
 import { formatDistanceToNow } from 'date-fns';
@@ -48,6 +48,19 @@ const Tweet = () => {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.message)
+        }
+    }
+
+    const bookmarkHandler = async (id) => {
+        try {
+            axios.defaults.withCredentials = true;
+            const res = await axios.put(`${USER_API_ENDPOINT}/bookmark/${id}`, {})
+            console.log(res)
+            toast.success(res?.data?.message)
+            dispatch(getRefresh())
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
         }
     }
 
@@ -126,8 +139,9 @@ const Tweet = () => {
                             </div>
 
                             <div className="flex items-center space-x-2 group cursor-pointer">
-                                <FaRegBookmark className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out" />
-                                <h1 className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out">0</h1>
+                                <FaRegBookmark onClick={() => bookmarkHandler(t?._id)}
+                                    className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out" />
+                                <h1 className="group-hover:text-blue-700 transition-colors duration-300 ease-in-out">{t?.bookmark?.length}</h1>
                             </div>
                             {user?._id === t?.userId && (
                                 <div className="flex items-center space-x-2 text-xl group cursor-pointer">
