@@ -1,5 +1,6 @@
 import DBConnect from "../config/database.js";
 import User from "../models/userSchema.js";
+import Tweet from "../models/tweetSchema.js";
 import logger from "../logger.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -37,9 +38,6 @@ export const updateProfile = async (req, res) => {
         logger.error("Error occure in Update Profile", error.message)
     }
 }
-
-
-
 
 const userRegister = async (req, res) => {
     try {
@@ -155,7 +153,7 @@ export const Bookmark = async (req, res) => {
             return res.status(200).json({
                 message: "Bookmark Removed Successfully",
                 success: true
-            })
+            })  
         } else {
             // Add Bookmark
             await User.findByIdAndUpdate(loggedInUserId, { $push: { bookmark: tweetId } })
@@ -167,6 +165,23 @@ export const Bookmark = async (req, res) => {
 
     } catch (error) {
         logger.critical("Error in Bookmark", error.message);
+    }
+}
+
+export const getBookmarkTweet = async (req, res) => {
+    try {
+        const loggedInUserId = req.user._id;
+        //Find User
+        const user = await User.findById(loggedInUserId)
+        const bookmarkTweet = await Tweet.find({_id: {$in : user.bookmark}})
+        return res.status(200).json({
+            message: "Bookmark Fetch Successfully",
+            success: true,
+            bookmarkTweet
+        })
+    } catch (error) {
+      console.log(error);
+      logger.error("Error in getBookmarkTweet", error.message)  
     }
 }
 
