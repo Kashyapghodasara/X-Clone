@@ -147,5 +147,11 @@
         - Get, Add and Remove bookmark functionality
         - Fix issues and Bugs
 
+### Day 26 - Thursday  -  09-01-2025
+        - Install Multer
+        - Create upload Profile Pic UI page
+        - Update Schema
+        - Fix issues and Bugs
+
 
 
