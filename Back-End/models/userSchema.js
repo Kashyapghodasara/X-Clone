@@ -41,6 +41,10 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    profilePic: {
+        type: String,
+        default: "default.jpg"
+    }
 }, { timestamps: true })
 
 // Tweet has no relation with Bookmark. instead of User has direct relation with Bookmark.
