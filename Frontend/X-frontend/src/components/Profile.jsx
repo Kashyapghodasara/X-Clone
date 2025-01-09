@@ -35,7 +35,6 @@ const Profile = () => {
   }, [allTweet, profile]);
 
 
-
   const follow_unfollow_Handler = async () => {
     try {
       const endpoint = user?.following.includes(id)
@@ -89,16 +88,16 @@ const Profile = () => {
           }}
         />
         {/* Avatar */}
-        <div className="relative -mt-[65px] ml-4">
+        <div className="relative -mt-[65px] ml-4 hover:cursor-pointer">
           <Avatar
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s"
+            src={profile?.profilePic}
             size="130"
-            round={true} // Ensures the avatar is circular
-            style={{
-              border: '5px solid black', // Single border
-            }}
-          />
+            round={true}
+            onClick={() => {navigate(`/uploadPhoto/${profile?._id}`)}}
+            className="border-[7px] border-black" // Your custom border
+            style={{ border: "none" }}/>
         </div>
+
       </div>
       <div className="p-5  flex flex-col">
         {/* Profile Name and Edit Button in a Flex Container */}
