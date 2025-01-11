@@ -8,6 +8,50 @@ import jwt from "jsonwebtoken";
 DBConnect();
 
 
+
+export const uploadProfilePic = async (req, res) => {
+    try {
+        const loggedInUser = req.params.id;
+        const file = req.file?.filename; // Use optional chaining for safety
+        const user = await User.findById(loggedInUser);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found",
+                success: false
+            });
+        }
+
+        if (!file) {
+            return res.status(400).json({
+                message: "Image is required",
+                success: false
+            });
+        }
+
+        // Update the profile picture path with the correct prefix
+        const profilePicPath = `/images/${file}`;
+
+        await User.findByIdAndUpdate(loggedInUser, {
+            $set: { profilePic: profilePicPath }
+        });
+
+        return res.status(200).json({
+            message: "Profile Pic Updated Successfully",
+            success: true,
+            profilePic: profilePicPath // Return the updated path in the response
+        });
+    } catch (error) {
+        console.error("Error in uploadProfilePic:", error);
+        logger?.critical("Error in uploadProfilePic", error.message);
+        return res.status(500).json({
+            message: "An error occurred while updating the profile picture",
+            success: false
+        });
+    }
+};
+
+
 export const updateProfile = async (req, res) => {
 
     try {
@@ -22,12 +66,14 @@ export const updateProfile = async (req, res) => {
         const findUser = await User.findById(loggedInUserId)
         if (!findUser) return res.status(404).json({ message: "User not found", success: false })
 
-        const updatedProfile = await User.findByIdAndUpdate(loggedInUserId, { $set : {
-            name: fullname,
-            birthdate,
-            location,
-            description: bio
-        }})
+        const updatedProfile = await User.findByIdAndUpdate(loggedInUserId, {
+            $set: {
+                name: fullname,
+                birthdate,
+                location,
+                description: bio
+            }
+        })
         return res.status(200).json({
             message: "Profile Updated Successfully",
             success: true,
@@ -153,7 +199,7 @@ export const Bookmark = async (req, res) => {
             return res.status(200).json({
                 message: "Bookmark Removed Successfully",
                 success: true
-            })  
+            })
         } else {
             // Add Bookmark
             await User.findByIdAndUpdate(loggedInUserId, { $push: { bookmark: tweetId } })
@@ -173,15 +219,15 @@ export const getBookmarkTweet = async (req, res) => {
         const loggedInUserId = req.user._id;
         //Find User
         const user = await User.findById(loggedInUserId)
-        const bookmarkTweet = await Tweet.find({_id: {$in : user.bookmark}})
+        const bookmarkTweet = await Tweet.find({ _id: { $in: user.bookmark } })
         return res.status(200).json({
             message: "Bookmark Fetch Successfully",
             success: true,
             bookmarkTweet
         })
     } catch (error) {
-      console.log(error);
-      logger.error("Error in getBookmarkTweet", error.message)  
+        console.log(error);
+        logger.error("Error in getBookmarkTweet", error.message)
     }
 }
 

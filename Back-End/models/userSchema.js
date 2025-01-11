@@ -37,18 +37,15 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
-     bookmark: {
+    bookmark: {
         type: Array,
         default: []
     },
     profilePic: {
         type: String,
-        default: "default.jpg"
+        default: "/images/default.jpg" // Updated to include the full path
     }
-}, { timestamps: true })
-
-// Tweet has no relation with Bookmark. instead of User has direct relation with Bookmark.
-
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 export default User;

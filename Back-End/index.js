@@ -1,10 +1,12 @@
-import express, { urlencoded } from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
 import DBConnect from './config/database.js'
 import cookieParser from 'cookie-parser'
 import userRoutes from './routes/userRoutes.js'
 import tweetRoutes from './routes/tweetRoutes.js'
 import cors from 'cors'
+import path from 'path'
+
 
 const app = express()
 DBConnect();
@@ -23,6 +25,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions))
+app.use(express.static('public')) 
 
 // Winston and Morgan
 import logger from "./logger.js";
