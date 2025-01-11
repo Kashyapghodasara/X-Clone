@@ -25,6 +25,13 @@ const Profile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const getProfileImageUrl = (profilePic) => {
+    if (!profilePic) return null;
+    // If the profilePic already starts with http/https, it's an external URL
+    if (profilePic.startsWith('http')) return profilePic;
+    // Otherwise, prepend the API endpoint
+    return `${USER_API_ENDPOINT}${profilePic}`;
+  };
 
   const [profilePostCount, setProfilePostCount] = useState(0);
 
@@ -90,12 +97,16 @@ const Profile = () => {
         {/* Avatar */}
         <div className="relative -mt-[65px] ml-4 hover:cursor-pointer">
           <Avatar
-            src={profile?.profilePic}
+            src={getProfileImageUrl(profile?.profilePic)} // not solved
             size="130"
             round={true}
-            onClick={() => {navigate(`/uploadPhoto/${profile?._id}`)}}
-            className="border-[7px] border-black" // Your custom border
-            style={{ border: "none" }}/>
+            onClick={
+              user?._id === profile?._id
+                ? () => navigate(`/uploadPhoto/${profile?._id}`)
+                : null
+            }
+            className="border-[7px] border-black"
+            style={{ border: "none" }} />
         </div>
 
       </div>
