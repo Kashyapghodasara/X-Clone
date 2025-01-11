@@ -153,5 +153,13 @@
         - Update Schema
         - Fix issues and Bugs
 
+### Day 27 - Saturday  -  10-01-2025
+        - Create upload Profile Pic UI page
+        - Update Schema, Controller, Route for upload Pic.
+        - Fix issues and Bugs
+        - Grinding Mode ON 
+        - and stuck into my Codebase and tired with ChatGPT
+        - Everything work perfect but profilePic is not showing on Frontend 😤😡
+
 
 
