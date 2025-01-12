@@ -153,7 +153,7 @@
         - Update Schema
         - Fix issues and Bugs
 
-### Day 27 - Saturday  -  10-01-2025
+### Day 27 - Saturday  -  11-01-2025
         - Create upload Profile Pic UI page
         - Update Schema, Controller, Route for upload Pic.
         - Fix issues and Bugs
@@ -162,4 +162,9 @@
         - Everything work perfect but profilePic is not showing on Frontend 😤😡
 
 
-
+### Day 28 - Sunday  -  12-01-2025
+        - Update Schema, Controller, Route for upload Pic.
+        - Now profilePic is showing Perfectly
+        - Fix issues and Bugs
+        - Small touchup is remaining
+        - All these Multer work complete using Bolt.new AI 
