@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Avatar from 'react-avatar';
 import { Link, useParams } from 'react-router-dom';
 import { IoHome } from "react-icons/io5";
@@ -15,7 +15,7 @@ import { USER_API_ENDPOINT } from '../utils/constant.jsx';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { getOtherUsers, getProfile, getUser } from '../redux/userSlice.jsx';
-import { getAllTweet } from '../redux/tweetSlice.jsx';
+import { getAllTweet, getRefresh } from '../redux/tweetSlice.jsx';
 
 
 const Leftsidebar = () => {
@@ -26,6 +26,10 @@ const Leftsidebar = () => {
   const navigate = useNavigate()
   /* const {id} = useParams()
   useGetProfile(id) */   // Call custom Hooks
+
+  useEffect(() => {
+    dispatch(getRefresh())
+  }, [])
 
   const islogOut = async () => {
     try {
@@ -123,12 +127,13 @@ const Leftsidebar = () => {
         <div>
           <div className="flex items-center mt-4 hover:bg-zinc-900 rounded-full px-4 py-3 text-white cursor-pointer transition-all ease-in-out w-fit space-x-3">
             <Avatar
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s"
+              src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user.profilePic}` : null}
               size="45"
               round={true}
+              className='object-cover'
             />
             <div>
-              <div className="font-semibold">{profile?.name}</div>
+              <div className="font-semibold">{ profile?.name}</div>
               <div className="text-sm text-gray-400">{`@${profile?.username}`}</div>
             </div>
           </div>

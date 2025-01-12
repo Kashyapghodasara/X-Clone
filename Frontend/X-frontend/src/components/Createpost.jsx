@@ -7,7 +7,7 @@ import { RiEmotionHappyLine } from "react-icons/ri";
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { useState } from 'react';
-import { TWEET_API_ENDPOINT } from '../utils/constant';
+import { TWEET_API_ENDPOINT, USER_API_ENDPOINT } from '../utils/constant';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { getAllTweet, getIsActive, getRefresh } from '../redux/tweetSlice';
@@ -19,7 +19,7 @@ const Createpost = () => {
 
     const [description, setDescription] = useState("")
     const dispatch = useDispatch()
-    const { user } = useSelector(store => store.user)
+    const { user, profile } = useSelector(store => store.user)
     const { isActive } = useSelector(store => store.TWEET)
 
     const submitHandler = async () => {
@@ -60,11 +60,11 @@ const Createpost = () => {
             </div>
             <div className="flex items-start mt-4">
                 <Avatar
-                    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s'
+                   src={profile?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${profile.profilePic}` : null}
                     size="50"
                     round={true}
                     style={{ objectFit: 'cover' }}
-                    className="mr-4"
+                    className="mr-4 object-cover"
                 />
                 <textarea
                     className="w-[80%] h-[90px] bg-transparent flex flex-grow outline-none rounded-md text-white placeholder-gray-400 resize-none scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-gray-900 scrollbar-track-gray-900"

@@ -21,7 +21,7 @@ const UploadPhoto = () => {
             }
 
             // Validate file type
-            const validTypes = ['image/jpeg', 'image/png'];
+            const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
             if (!validTypes.includes(file.type)) {
                 toast.error("Invalid file type. Please upload a JPEG or PNG image.");
                 return;

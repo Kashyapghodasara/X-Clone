@@ -25,13 +25,6 @@ const Profile = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const getProfileImageUrl = (profilePic) => {
-    if (!profilePic) return null;
-    // If the profilePic already starts with http/https, it's an external URL
-    if (profilePic.startsWith('http')) return profilePic;
-    // Otherwise, prepend the API endpoint
-    return `${USER_API_ENDPOINT}${profilePic}`;
-  };
 
   const [profilePostCount, setProfilePostCount] = useState(0);
 
@@ -39,6 +32,7 @@ const Profile = () => {
     // Calculate posts where the tweet's userId matches the profile's _id
     const count = allTweet?.filter(tweet => tweet?.userId === profile?._id).length || 0;
     setProfilePostCount(count);
+    dispatch(getRefresh());
   }, [allTweet, profile]);
 
 
@@ -97,7 +91,7 @@ const Profile = () => {
         {/* Avatar */}
         <div className="relative -mt-[65px] ml-4 hover:cursor-pointer">
           <Avatar
-            src={getProfileImageUrl(profile?.profilePic)} // not solved
+            src={profile?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${profile.profilePic}` : null}
             size="130"
             round={true}
             onClick={
@@ -105,8 +99,9 @@ const Profile = () => {
                 ? () => navigate(`/uploadPhoto/${profile?._id}`)
                 : null
             }
-            className="border-[7px] border-black"
-            style={{ border: "none" }} />
+            className="border-[7px] border-black object-cover"
+            style={{ border: "none" }}
+          />
         </div>
 
       </div>

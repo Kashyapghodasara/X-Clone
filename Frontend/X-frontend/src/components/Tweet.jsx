@@ -66,15 +66,6 @@ const Tweet = () => {
 
     const [hoveredTweetId, setHoveredTweetId] = useState(null);
 
-    // Truncate bio to 25 words
-    /*   const truncateBio = (bio, wordLimit) => {
-          const words = bio.split(' ');
-          if (words.length > wordLimit) {
-              return words.slice(0, wordLimit).join(' ') + '...';
-          }
-          return bio;
-      }; */
-
     return (
         <div>
             {allTweet?.map((t) => (
@@ -88,7 +79,7 @@ const Tweet = () => {
                             {/* Avatar */}
                             <img
                                 className="hover:cursor-pointer ml-2 mt-1 rounded-full"
-                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s"
+                                src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user.profilePic}` : null}
                                 alt="Avatar"
                                 style={{ width: '50px', height: '50px' }}
                             />
