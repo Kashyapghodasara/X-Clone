@@ -6,7 +6,11 @@ import userRoutes from './routes/userRoutes.js'
 import tweetRoutes from './routes/tweetRoutes.js'
 import cors from 'cors'
 import path from 'path'
+import { fileURLToPath } from 'url';
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express()
 DBConnect();
@@ -25,7 +29,9 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(cors(corsOptions))
-app.use(express.static('public')) 
+// Set up static file serving
+app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
+
 
 // Winston and Morgan
 import logger from "./logger.js";
