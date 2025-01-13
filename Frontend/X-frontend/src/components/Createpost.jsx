@@ -6,11 +6,11 @@ import { LuListChecks } from "react-icons/lu";
 import { RiEmotionHappyLine } from "react-icons/ri";
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { MdOutlineLocationOn } from "react-icons/md";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TWEET_API_ENDPOINT, USER_API_ENDPOINT } from '../utils/constant';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { getAllTweet, getIsActive, getRefresh } from '../redux/tweetSlice';
+import { getIsActive, getRefresh } from '../redux/tweetSlice';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -20,7 +20,7 @@ const Createpost = () => {
     const [description, setDescription] = useState("")
     const dispatch = useDispatch()
     const { user, profile } = useSelector(store => store.user)
-    const { isActive } = useSelector(store => store.TWEET)
+    const { isActive, refresh } = useSelector(store => store.TWEET)
 
     const submitHandler = async () => {
         try {
@@ -44,6 +44,7 @@ const Createpost = () => {
     const followingHandler = () => {
         dispatch(getIsActive(false))
     }
+    
     return (
         <div className="border border-transparent border-white m-2 mb-5 shadow-lg transition duration-200 ease-in-out p-4 rounded-md">
             <div className="flex items-center w-full justify-around">
@@ -58,9 +59,10 @@ const Createpost = () => {
             <div className="mt-[10px]">
                 <hr />
             </div>
+
             <div className="flex items-start mt-4">
                 <Avatar
-                   src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user?.profilePic}` : null}
+                    src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user?.profilePic}` : null}
                     size="50"
                     round={true}
                     style={{ objectFit: 'cover' }}
@@ -73,7 +75,6 @@ const Createpost = () => {
                     onChange={(e) => { setDescription(e.target.value) }}
                 ></textarea>
             </div>
-
 
             <div className="flex justify-between items-center ">
                 <div className="flex flex-row gap-4 text-[22px] text-gray-500 ">

@@ -16,7 +16,7 @@ const Tweet = () => {
   useBookmarkTweet();
 
   const { allTweet, bookmark } = useSelector((store) => store.TWEET);
-  const { user } = useSelector((store) => store.user);
+  const { user, otherUsers } = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
   const [liked, setLiked] = useState(false);
@@ -69,6 +69,23 @@ const Tweet = () => {
     }
   }
 
+  const getProfilePicUrl = (tweet) => {
+    // First try to get the profile pic from otherUsers (which should be more up-to-date)
+    const matchingUser = otherUsers?.find(user => user._id === tweet.userId);
+    const profilePic = matchingUser?.profilePic || tweet?.userDetails?.[0]?.profilePic;
+
+    if (!profilePic) return null;
+
+    // If it's already a full URL, return as is
+    if (profilePic.startsWith('http')) {
+      return profilePic;
+    }
+
+    // Otherwise, construct the full URL
+    const baseUrl = USER_API_ENDPOINT.split('/api/v1/user')[0];
+    return `${baseUrl}${profilePic}`;
+  };
+
   return (
     <div className="w-[60%]">
       <h1 className="text-3xl font-bold flex items-center justify-center mb-6 space-x-2">
@@ -89,9 +106,13 @@ const Tweet = () => {
                     {/* Avatar */}
                     <img
                       className="hover:cursor-pointer ml-2 mt-1 rounded-full"
-                      src={t?.userDetails?.[0]?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${t?.userDetails?.[0]?.profilePic}` : null}
-                      alt="Avatar"
-                      style={{ width: '50px', height: '50px' }}
+                      src={getProfilePicUrl(t)}
+                      alt={`${t?.userDetails?.[0]?.name}'s avatar`}
+                      style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                      onError={(e) => {
+                        e.target.onerror = null; // Prevent infinite loop
+                        e.target.src = 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y';
+                      }}
                     />
 
                     {hoveredTweetId === t?._id ? (

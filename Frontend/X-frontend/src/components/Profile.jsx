@@ -29,11 +29,13 @@ const Profile = () => {
   const [profilePostCount, setProfilePostCount] = useState(0);
 
   useEffect(() => {
-    // Calculate posts where the tweet's userId matches the profile's _id
-    const count = allTweet?.filter(tweet => tweet?.userId === profile?._id).length || 0;
-    setProfilePostCount(count);
+    // Ensure allTweet is an array before filtering
+    const count = Array.isArray(allTweet)
+      ? allTweet.filter((tweet) => tweet?.userId === profile?._id).length
+      : 0;
+    setProfilePostCount(count); // Fallback to 0 if allTweet is not an array
     dispatch(getRefresh());
-  }, [allTweet, profile]);
+  }, [allTweet, profile, dispatch]);
 
 
   const follow_unfollow_Handler = async () => {

@@ -8,6 +8,7 @@ import { getAllTweet, getRefresh } from '../redux/tweetSlice'
 export const useGetTweet = () => {
     const dispatch = useDispatch()
     const { refresh, isActive } = useSelector(store => store.TWEET)
+    const {profile} = useSelector(store => store.user)
 
 
     const followingHandler = async () => {
@@ -38,5 +39,5 @@ export const useGetTweet = () => {
         } else {
             followingHandler()
         }
-    }, [isActive, refresh]) // Add id as a dependency
+    }, [isActive, refresh, profile]) // Add id as a dependency
 }

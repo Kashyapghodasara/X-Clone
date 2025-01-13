@@ -29,7 +29,7 @@ const Leftsidebar = () => {
 
   useEffect(() => {
     dispatch(getRefresh())
-  }, [])
+  }, [profile, user])
 
   const islogOut = async () => {
     try {

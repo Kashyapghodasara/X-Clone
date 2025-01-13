@@ -1,11 +1,12 @@
 import axios from 'axios'
 import { USER_API_ENDPOINT } from '../utils/constant'
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getProfile } from '../redux/userSlice'
 
 export const useGetProfile = (id) => {
     const dispatch = useDispatch()
+    const {profile} = useSelector((store) => store.user)
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -17,5 +18,5 @@ export const useGetProfile = (id) => {
             }
         }
         if (id) fetchProfile()
-    }, [id]) // Add id as a dependency
+    }, [id, profile]) // Add id as a dependency
 }
