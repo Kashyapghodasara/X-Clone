@@ -32,14 +32,15 @@ export const uploadProfilePic = async (req, res) => {
         // Update the profile picture path with the correct prefix
         const profilePicPath = `/images/${file}`;
 
-        await User.findByIdAndUpdate(loggedInUser, {
+        const updatedUser = await User.findByIdAndUpdate(loggedInUser, {
             $set: { profilePic: profilePicPath }
         });
 
         return res.status(200).json({
             message: "Profile Pic Updated Successfully",
             success: true,
-            profilePic: profilePicPath // Return the updated path in the response
+            profilePic: profilePicPath, // Return the updated path in the response
+            updatedUser
         });
     } catch (error) {
         console.error("Error in uploadProfilePic:", error);
