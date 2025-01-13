@@ -5,7 +5,7 @@ export const userSlice = createSlice({
     initialState: {
         user: null,
         otherUsers: null,
-        profile: null
+        profile: null,
     },
     reducers: {      // It has multiple actions
         getUser: (state, action) => {

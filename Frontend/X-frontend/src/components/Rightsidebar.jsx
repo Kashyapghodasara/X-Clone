@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import { useOtherUsers } from '../hooks/useOtherUsers';
 import { useSelector } from 'react-redux';
 import { USER_API_ENDPOINT } from '../utils/constant';
-import {followingUpdate} from '../redux/userSlice';
+import { followingUpdate } from '../redux/userSlice';
 import { useDispatch } from 'react-redux';
 import { getRefresh } from '../redux/tweetSlice';
 import axios from 'axios';
@@ -56,14 +56,19 @@ const Rightsidebar = () => {
         { /* Follow Suggestions  */}
         <h1 className='font-bold text-[24px] text-gray-100 mb-3'>Who to follow</h1>
 
-        {otherUsers?.map((t) => {
-          return (
+        {Array.isArray(otherUsers) &&
+          otherUsers.map((t) => (
             <div key={t?._id}>
               <div className="flex gap-1 items-center mb-3">
                 <Avatar
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuEI5QY4LSQt-VQdDPty2-yI8nYnHlNiJEJg&s"
+                  src={
+                    t?.profilePic
+                      ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${t?.profilePic}`
+                      : null
+                  }
                   size="40"
                   round={true}
+                  className="object-cover"
                 />
                 <div className="flex flex-col ml-2">
                   <Link to={`/profile/${t?._id}`}>
@@ -71,15 +76,20 @@ const Rightsidebar = () => {
                   </Link>
                   <h3 className="text-sm font-normal">{`@${t?.username}`}</h3>
                 </div>
-                <button onClick={() => follow_unfollow_Handler(t?._id)}
-                  className={`ml-auto rounded-full px-4 py-[4px] ${user?.following.includes(t?._id) ? "bg-transparent text-white outline outline-2 outline-gray-500" : "bg-white text-black"}`}>
-                  {user?.following.includes(t?._id) ? "Following" : "Follow"}
+                <button
+                  onClick={() => follow_unfollow_Handler(t?._id)}
+                  className={`ml-auto rounded-full px-4 py-[4px] ${user?.following?.includes(t?._id)
+                      ? "bg-transparent text-white outline outline-2 outline-gray-500"
+                      : "bg-white text-black"
+                    }`}
+                >
+                  {user?.following?.includes(t?._id) ? "Following" : "Follow"}
                 </button>
               </div>
               <hr className="border-t mb-2 border-gray-500" />
-            </div>)
-        })
-        }
+            </div>
+          ))}
+
 
       </div>
     </div>

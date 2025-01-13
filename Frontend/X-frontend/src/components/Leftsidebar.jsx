@@ -127,14 +127,14 @@ const Leftsidebar = () => {
         <div>
           <div className="flex items-center mt-4 hover:bg-zinc-900 rounded-full px-4 py-3 text-white cursor-pointer transition-all ease-in-out w-fit space-x-3">
             <Avatar
-              src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user.profilePic}` : null}
+              src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user?.profilePic}` : null}
               size="45"
               round={true}
               className='object-cover'
             />
             <div>
-              <div className="font-semibold">{ profile?.name}</div>
-              <div className="text-sm text-gray-400">{`@${profile?.username}`}</div>
+              <div className="font-semibold">{ user?.name}</div>
+              <div className="text-sm text-gray-400">{`@${user?.username}`}</div>
             </div>
           </div>
         </div>

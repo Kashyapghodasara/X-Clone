@@ -60,7 +60,7 @@ const Createpost = () => {
             </div>
             <div className="flex items-start mt-4">
                 <Avatar
-                   src={profile?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${profile.profilePic}` : null}
+                   src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user?.profilePic}` : null}
                     size="50"
                     round={true}
                     style={{ objectFit: 'cover' }}

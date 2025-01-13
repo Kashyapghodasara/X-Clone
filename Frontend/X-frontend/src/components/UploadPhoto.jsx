@@ -4,10 +4,11 @@ import toast from 'react-hot-toast';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { USER_API_ENDPOINT } from '../utils/constant';
-import { getRefresh } from '../redux/tweetSlice';
+import { getAllTweet, getRefresh } from '../redux/tweetSlice';
+import { getUser, getOtherUsers, getProfile } from '../redux/userSlice';
 
 const UploadPhoto = () => {
-    const { profile } = useSelector(state => state.user);
+    const { profile, user, otherUsers } = useSelector(state => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -38,9 +39,15 @@ const UploadPhoto = () => {
                 formData,
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             );
-
+            console.log(res)
             toast.success(res?.data?.message);
+
             dispatch(getRefresh());
+            dispatch(getUser(res?.data?.profilePic));
+            dispatch(getProfile(res?.data?.profilePic));
+            dispatch(getOtherUsers(res?.data?.profilePic));
+            dispatch(getAllTweet(res?.data?.profilePic))
+
             navigate(`/profile/${profile?._id}`);
         } catch (error) {
             console.error(error);

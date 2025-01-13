@@ -79,10 +79,10 @@ const Tweet = () => {
                             {/* Avatar */}
                             <img
                                 className="hover:cursor-pointer ml-2 mt-1 rounded-full"
-                                src={user?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${user.profilePic}` : null}
+                                src={t?.userDetails?.[0]?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${t?.userDetails?.[0]?.profilePic}` : null}
                                 alt="Avatar"
-                                style={{ width: '50px', height: '50px' }}
-                            />
+                                style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                            />  
 
                             {hoveredTweetId === t?._id ? (
                                 t?.userDetails?.[0]?._id === t?.userId && (

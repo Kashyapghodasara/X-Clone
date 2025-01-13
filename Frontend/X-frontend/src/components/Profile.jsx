@@ -38,7 +38,7 @@ const Profile = () => {
 
   const follow_unfollow_Handler = async () => {
     try {
-      const endpoint = user?.following.includes(id)
+      const endpoint = user?.following?.includes(id)
         ? `${USER_API_ENDPOINT}/unfollow/${id}`
         : `${USER_API_ENDPOINT}/follow/${id}`;
 
@@ -91,7 +91,7 @@ const Profile = () => {
         {/* Avatar */}
         <div className="relative -mt-[65px] ml-4 hover:cursor-pointer">
           <Avatar
-            src={profile?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${profile.profilePic}` : null}
+            src={profile?.profilePic ? `${USER_API_ENDPOINT.replace('/api/v1/user', '')}${profile?.profilePic}` : null}
             size="130"
             round={true}
             onClick={
@@ -121,12 +121,12 @@ const Profile = () => {
             ) : (
               <button
                 onClick={follow_unfollow_Handler}
-                className={`text-md px-4 py-1 font-semibold ${user?.following.includes(id)
+                className={`text-md px-4 py-1 font-semibold ${user?.following?.includes(id)
                   ? "bg-transparent outline outline-2 outline-gray-500"
                   : "text-black bg-white outline outline-2"
                   } hover:cursor-pointer rounded-full`}
               >
-                {user?.following.includes(id) ? "Following" : "Follow"}
+                {user?.following?.includes(id) ? "Following" : "Follow"}
               </button>
             )
           }
@@ -155,8 +155,8 @@ const Profile = () => {
       </div>
 
       <div className='flex flex-row items-center p-5 gap-4'>
-        <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.following.length}`}</span>Following</h1>
-        <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.followers.length}`}</span>Followers</h1>
+        <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.following?.length}`}</span>Following</h1>
+        <h1 className='font-normal text-gray-500'><span className='font-bold mr-1 text-white'>{`${profile?.followers?.length}`}</span>Followers</h1>
       </div>
     </div>
   );
