@@ -1,3 +1,23 @@
+# **Project Name:** X-Clone  
+## **Tech Stack:** MERN (MongoDB, Express.js, React.js, Node.js)  
+
+## **Description:**  
+X-Clone is a fully functional social media application inspired by X (formerly Twitter), designed to replicate and enhance the core features of modern social networking platforms.  
+
+## **Key Features:**  
+- **🔐 User Authentication:** Secure login and registration system.  
+- **🖊️ Profile Management:** Users can create and customize their profiles.  
+- **⚡ Real-Time Interactions:** Post, like, and delete updates in real time.  
+- **🔄 Follow System:** Follow and unfollow users to curate a personalized feed.  
+- **📜 Dynamic Feeds:** Display posts from followed users in a responsive and organized layout.  
+- **🔔 Notifications:** Attractive real-time notifications for every action.  
+- **🎨 Design:** The design is fully inspired by X.  
+
+## **Objective:**  
+The goal is to learn and develop a user-friendly project that ensures understanding of how things and functions work and how challenging it can be to implement something that seems like a piece of cake. 🍰
+
+---
+---
 ### Day 1 - Saturday  -  07-12-2024
         - Create a Folder Structure (Frontend)
         - Create a Leftsidebar and Creatpost
@@ -174,3 +194,6 @@
         - Finallyy The Project is Over and Out 😍
         - Everything work perfectly ✅
         - After final Completion Testing It's Ready to Deployed  🚀
+
+---
+## Special thanks to @Surendrakumarpatel (Patel MERN Stack) YouTube Channel for guiding and supporting throughout the development process.
