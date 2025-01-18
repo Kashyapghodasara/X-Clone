@@ -195,5 +195,10 @@ The goal is to learn and develop a user-friendly project that ensures understand
         - Everything work perfectly ✅
         - After final Completion Testing It's Ready to Deployed  🚀
 
+### Day 35 - Saturday  -  18-01-2025
+       - I am tired of not succeeding in deploying my project
+       - This ruined my codebase, but then I realized I Dont waste my time on this
+       - I retrieved an older commit from GitHub and saved it
+
 ---
 ## Special thanks to @Surendrakumarpatel (Patel MERN Stack) YouTube Channel for guiding and supporting throughout the development process.
