@@ -206,5 +206,16 @@ The goal is to learn and develop a user-friendly project that ensures understand
 
 # Images
 ![Login Page](Images/X%20-%20Clone/Login.PNG)
+![Signup Page](Images/X%20-%20Clone/Signup.PNG)
+![Home Page](Images/X%20-%20Clone/Home_page.PNG)
+![Profile Page](Images/X%20-%20Clone/Profile_page.PNG)
+![UpdateProfile Page](Images/X%20-%20Clone/Update_profile_page.PNG)
+![Upload Photo Page](Images/X%20-%20Clone/Upload_Profile_Pic.PNG)
+![Bookmark Page](Images/X%20-%20Clone/Bookmark_page.PNG)
+
+
+
+
+
 
 
