@@ -216,4 +216,4 @@ Here are the images for the project:
 ![Profile Page](Images/X%20-%20Clone/Profile%20page.PNG)
 ![UpdateProfile Page](Images/X%20-%20Clone/Update%20profile%20page.PNG)
 ![Upload Photo Page](Images/X%20-%20Clone/Upload%20Profile%20Pic.PNG)
-![Bookmark Page](Images/X%20-%20Clone/Bookmark%20page.PNG)
+![Bookmark Page](Images/X%20-%20Clone/Bookmark.PNG)
