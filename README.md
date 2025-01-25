@@ -16,6 +16,9 @@ X-Clone is a fully functional social media application inspired by X (formerly T
 ## **Objective:**  
 The goal is to learn and develop a user-friendly project that ensures understanding of how things and functions work and how challenging it can be to implement something that seems like a piece of cake. 🍰
 
+## **Images of Projects:**
+[Go to Images Section](#images)
+
 ---
 ---
 ### Day 1 - Saturday  -  07-12-2024
@@ -204,18 +207,13 @@ The goal is to learn and develop a user-friendly project that ensures understand
 ## Special thanks to @Surendrakumarpatel (Patel MERN Stack) YouTube Channel for guiding and supporting throughout the development process.
 ---
 
-# Images
+# Images  
+Here are the images for the project:
+
 ![Login Page](Images/X%20-%20Clone/Login.PNG)
 ![Signup Page](Images/X%20-%20Clone/Signup.PNG)
-![Home Page](Images/X%20-%20Clone/Home_page.PNG)
-![Profile Page](Images/X%20-%20Clone/Profile_page.PNG)
-![UpdateProfile Page](Images/X%20-%20Clone/Update_profile_page.PNG)
-![Upload Photo Page](Images/X%20-%20Clone/Upload_Profile_Pic.PNG)
-![Bookmark Page](Images/X%20-%20Clone/Bookmark_page.PNG)
-
-
-
-
-
-
-
+![Home Page](Images/X%20-%20Clone/Home%20page.PNG)
+![Profile Page](Images/X%20-%20Clone/Profile%20page.PNG)
+![UpdateProfile Page](Images/X%20-%20Clone/Update%20profile%20page.PNG)
+![Upload Photo Page](Images/X%20-%20Clone/Upload%20Profile%20Pic.PNG)
+![Bookmark Page](Images/X%20-%20Clone/Bookmark%20page.PNG)
