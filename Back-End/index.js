@@ -20,7 +20,7 @@ dotenv.config({
 })
 
 const corsOptions = {
-    origin: 'https://x-clone-ep7r.onrender.com',
+    origin: 'http://localhost:5173',
     credentials: true
 }
 
