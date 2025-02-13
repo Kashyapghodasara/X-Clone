@@ -6,7 +6,7 @@ import Feed from './Feed'
 import Profile from './Profile'
 import Edit from './Edit'
 import Bookmark from './Bookmark'
-import UploadPhoto from './uploadPhoto'
+import UploadPhoto from './UploadPhoto'
 const Body = () => {
     const appRouter = createBrowserRouter([
         // This is an Array of Object
