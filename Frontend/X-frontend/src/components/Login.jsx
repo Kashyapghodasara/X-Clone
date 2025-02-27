@@ -6,8 +6,6 @@ import { useDispatch } from "react-redux"
 import { getUser } from '../redux/userSlice'
 import { useNavigate } from 'react-router-dom'
 
-
-
 const Login = () => {
 
   const [isLoggedIn, setLoggedIn] = useState(true)
@@ -76,14 +74,14 @@ const Login = () => {
     }
   }
 
-
+//'https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-white-icon.png'
   return (
     <div>
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         {/* Container */}
         <div className="flex flex-row items-center justify-center space-x-10 max-w-6xl">
           {/* Left Section - Logo */}
-          <img className="w-[350px] h-[380px] mr-12" src='https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/x-social-media-white-icon.png' alt="X-logo" />
+          <img className="w-[350px] h-[380px] mr-12" src='../../public/images/X-logo.png' alt="X-logo" />
 
           {/* Right Section - Form */}
           <div className="flex flex-col items-center mb-5">
@@ -110,7 +108,7 @@ const Login = () => {
                   >
 
 
-                    {!isLoggedIn && (
+                    {!isLoggedIn && (     //Signup
                       <>
                         <input
                           type="text"
@@ -142,7 +140,7 @@ const Login = () => {
                         />
                       </>
                     )}
-                    {isLoggedIn ? (
+                    {isLoggedIn ? (     //Login
                       <>
                         <input
                           type="text"
