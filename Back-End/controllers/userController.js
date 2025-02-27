@@ -7,85 +7,7 @@ import jwt from "jsonwebtoken";
 
 DBConnect();
 
-
-
-export const uploadProfilePic = async (req, res) => {
-    try {
-        const loggedInUser = req.params.id;
-        const file = req.file?.filename; // Use optional chaining for safety
-        const user = await User.findById(loggedInUser);
-
-        if (!user) {
-            return res.status(404).json({
-                message: "User Not Found",
-                success: false
-            });
-        }
-
-        if (!file) {
-            return res.status(400).json({
-                message: "Image is required",
-                success: false
-            });
-        }
-
-        // Update the profile picture path with the correct prefix
-        const profilePicPath = `/images/${file}`;
-
-        const updatedUser = await User.findByIdAndUpdate(loggedInUser, {
-            $set: { profilePic: profilePicPath }
-        });
-
-        return res.status(200).json({
-            message: "Profile Pic Updated Successfully",
-            success: true,
-            profilePic: profilePicPath, // Return the updated path in the response
-            updatedUser
-        });
-    } catch (error) {
-        console.error("Error in uploadProfilePic:", error);
-        logger?.critical("Error in uploadProfilePic", error.message);
-        return res.status(500).json({
-            message: "An error occurred while updating the profile picture",
-            success: false
-        });
-    }
-};
-
-
-export const updateProfile = async (req, res) => {
-
-    try {
-        const { fullname, birthdate, location, bio } = req.body;
-        const loggedInUserId = req.params.id;
-        if (!fullname && !birthdate && !location && !bio) {
-            return res.status(401).json({
-                message: "All fields are required",
-                success: false
-            })
-        }
-        const findUser = await User.findById(loggedInUserId)
-        if (!findUser) return res.status(404).json({ message: "User not found", success: false })
-
-        const updatedProfile = await User.findByIdAndUpdate(loggedInUserId, {
-            $set: {
-                name: fullname,
-                birthdate,
-                location,
-                description: bio
-            }
-        })
-        return res.status(200).json({
-            message: "Profile Updated Successfully",
-            success: true,
-            updatedProfile
-        })
-    } catch (error) {
-        console.log(error);
-        logger.error("Error occure in Update Profile", error.message)
-    }
-}
-
+// We have Loggein User data in req.user
 const userRegister = async (req, res) => {
     try {
         const { name, username, email, password } = req.body;
@@ -125,7 +47,6 @@ const userRegister = async (req, res) => {
         })
     }
 }
-
 export default userRegister
 
 export const Login = async (req, res) => {
@@ -337,3 +258,80 @@ export const Unfollow = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error", success: false });
     }
 };
+
+export const uploadProfilePic = async (req, res) => {
+    try {
+        const loggedInUser = req.params.id;
+        const file = req.file?.filename; // Use optional chaining for safety
+        const user = await User.findById(loggedInUser);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User Not Found",
+                success: false
+            });
+        }
+
+        if (!file) {
+            return res.status(400).json({
+                message: "Image is required",
+                success: false
+            });
+        }
+
+        // Update the profile picture path with the correct prefix
+        const profilePicPath = `/images/${file}`;
+
+        const updatedUser = await User.findByIdAndUpdate(loggedInUser, {
+            $set: { profilePic: profilePicPath }
+        });
+
+        return res.status(200).json({
+            message: "Profile Pic Updated Successfully",
+            success: true,
+            profilePic: profilePicPath, // Return the updated path in the response
+            updatedUser
+        });
+    } catch (error) {
+        console.error("Error in uploadProfilePic:", error);
+        logger?.critical("Error in uploadProfilePic", error.message);
+        return res.status(500).json({
+            message: "An error occurred while updating the profile picture",
+            success: false
+        });
+    }
+};
+
+
+export const updateProfile = async (req, res) => {
+
+    try {
+        const { fullname, birthdate, location, bio } = req.body;
+        const loggedInUserId = req.params.id;
+        if (!fullname && !birthdate && !location && !bio) {
+            return res.status(401).json({
+                message: "All fields are required",
+                success: false
+            })
+        }
+        const findUser = await User.findById(loggedInUserId)
+        if (!findUser) return res.status(404).json({ message: "User not found", success: false })
+
+        const updatedProfile = await User.findByIdAndUpdate(loggedInUserId, {
+            $set: {
+                name: fullname,
+                birthdate,
+                location,
+                description: bio
+            }
+        })
+        return res.status(200).json({
+            message: "Profile Updated Successfully",
+            success: true,
+            updatedProfile
+        })
+    } catch (error) {
+        console.log(error);
+        logger.error("Error occure in Update Profile", error.message)
+    }
+}
