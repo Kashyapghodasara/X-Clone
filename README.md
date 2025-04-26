@@ -201,4 +201,4 @@ The goal is to learn and develop a user-friendly project that ensures understand
        - I retrieved an older commit from GitHub and saved it
 
 ---
-## Special thanks to @Surendrakumarpatel (Patel MERN Stack) YouTube Channel for guiding and supporting throughout the development process.
+### Special thanks to @Surendrakumarpatel (Patel MERN Stack) YouTube Channel for guiding and supporting throughout the development process.
